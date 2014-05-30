@@ -25,13 +25,35 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>z=0;
+            <string>//Códigos executados quando o bloco é iniciado
+
+//Todo bloco tem uma altura, que é definida pela variável z:
+z=0;
+
+/*Todo bloco tem que ter texturas diferentes nas laterais. Algumas são de acordo com a situação, outras podem ser aleatórias.
+A sprite de textura é sempre gerada da seguinte forma:
+Imagem 0: lateral do bloco, com terminações na esquerda e na direita.
+Imagem 1: lateral do bloco, com terminação na direita.
+Imagem 2: lateral do bloco, com terminação na esquerda.
+Imagens 3, 4, 5 e 6: lateral do bloco, sem terminações. Qualquer uma pode ser escolhida.
+Imagem 7: topo e base do bloco. Pretendo fazer uma 8ª pra fazer a base...
+VALE LEMBRAR QUE, pra corrigir o bug de texture clamping, as sprites no arquivo devem ser espelhadas (terminação na direta sendo na esquerda, por exemplo).*/
+
+//No caso das laterais, podem ser escolhidas as imagens 3, 4, 5 e 6 aleatoriamente.
 lado_dir=choose(3,4,5,6);
 lado_cim=choose(3,4,5,6);
 lado_esq=choose(3,4,5,6);
 lado_bai=choose(3,4,5,6);
+
+//No topo e na base, seta a imagem 7.
 lado_topo=7;
 lado_base=7;
+
+//O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
+//retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
+//Isso é feito no próximo frame e não agora pois, pode ser que nesse exato momento que esse código estiver sendo executado,
+//os blocos vizinhos ainda não tenham sido gerados. Se isso ocorrer, haverá problemas na computação desses resultados.
+//Por isso que isso é executado no próximo frame, entendeu?
 alarm[0]=1;
 </string>
           </argument>
@@ -55,34 +77,59 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>bloco_dir=instance_position(x+16,y,obj_block);
+            <string>//Código a ser executado 1 frame após a criação do bloco
+
+//Inicialmente, pega-se as IDs dos blocos vizinhos.
+bloco_dir=instance_position(x+16,y,obj_block);
 bloco_cim=instance_position(x,y-16,obj_block);
 bloco_esq=instance_position(x-16,y,obj_block);
 bloco_bai=instance_position(x,y+16,obj_block);
+
+//Define que, este bloco ainda não encontrou nenhum bloco vizinho em nenhum lado.
 encontrou_dir=0;
 encontrou_cim=0;
 encontrou_esq=0;
 encontrou_bai=0;
+
+//Então, ele começa a computar os blocos vizinhos.
+//Se a posição Z do bloco vizinho for a mesma do bloco atual, então significa que ele é realmente um vizinho, e seta a variável encontrou_xxx de acordo.
+//Primeiro, o bloco na posição x+16 deste (direita).
 with (bloco_dir) {
     if (self.z==other.z) {
         other.encontrou_dir=1;
     }
 }
+//Depois, o bloco na posição y-16 deste (acima).
 with (bloco_cim) {
     if (self.z==other.z) {
         other.encontrou_cim=1;
     }
 }
+//Depois, o bloco na posição x-16 deste (esquerda).
 with (bloco_esq) {
     if (self.z==other.z) {
         other.encontrou_esq=1;
     }
 }
+//Depois, o bloco na posição y+16 deste (abaixo).
 with (bloco_bai) {
     if (self.z==other.z) {
         other.encontrou_bai=1;
     }
 }
+/*Vale lembrar que isso é como se fosse a planta baixa do mapa. Como o GameMaker não tem muitas funções de coordenadas em 3 dimensões exatas, tem que fazer
+essa POGzinha ali em cima pra identificar se o bloco vizinho "realmente é vizinho", isto é, se a posição Z dele é a mesma da posição Z deste!*/
+
+//Aqui, uma série de situações que podem ocorrer, e o bloco experimenta a que mais se adequa a ele.
+//Caso ele encontre um bloco em um lado específico, ele desativa aquela textura (-1 = Sem textura)
+//e se houver ou não mais blocos nas laterais, altera as outras texturas correspondentes
+//(0 = Terminações nos dois lados; 1 = Terminação na esquerda; 2 = Terminação na direita).
+//Vou fazer gráfico pra entender melhor essa parada aqui. X é quando tem bloco, e 0 é quando não tem.
+//Caso 1:
+//  0
+// 0X0
+//  0
+//Aciona todas as texturas
 if (encontrou_dir==0)
 and (encontrou_cim==0)
 and (encontrou_esq==0)
@@ -91,8 +138,13 @@ and (encontrou_bai==0) {
     lado_cim=0;
     lado_esq=0;
     lado_bai=0;
-} else
-if (encontrou_dir==1)
+}
+//Caso 2:
+//  0
+// 0XX
+//  0
+//Desativa a textura da direita
+else if (encontrou_dir==1)
 and (encontrou_cim==0)
 and (encontrou_esq==0)
 and (encontrou_bai==0) {
@@ -100,8 +152,13 @@ and (encontrou_bai==0) {
     lado_cim=2;
     lado_esq=0;
     lado_bai=1;
-} else
-if (encontrou_dir==0)
+}
+//Caso 3:
+//  X
+// 0X0
+//  0
+//Desativa a textura de cima
+else if (encontrou_dir==0)
 and (encontrou_cim==1)
 and (encontrou_esq==0)
 and (encontrou_bai==0) {
@@ -109,8 +166,13 @@ and (encontrou_bai==0) {
     lado_cim=-1;
     lado_esq=2;
     lado_bai=0;
-} else
-if (encontrou_dir==0)
+}
+//Caso 4:
+//  0
+// XX0
+//  0
+//Desativa a textura da esquerda
+else if (encontrou_dir==0)
 and (encontrou_cim==0)
 and (encontrou_esq==1)
 and (encontrou_bai==0) {
@@ -118,8 +180,13 @@ and (encontrou_bai==0) {
     lado_cim=1;
     lado_esq=-1;
     lado_bai=2;
-} else
-if (encontrou_dir==0)
+}
+//Caso 5:
+//  0
+// 0X0
+//  X
+//Desativa a textura de baixo
+else if (encontrou_dir==0)
 and (encontrou_cim==0)
 and (encontrou_esq==0)
 and (encontrou_bai==1) {
@@ -127,8 +194,13 @@ and (encontrou_bai==1) {
     lado_cim=0;
     lado_esq=1;
     lado_bai=-1;
-} else
-if (encontrou_dir==1)
+}
+//Caso 6:
+//  X
+// 0XX
+//  0
+//Desativa a textura da direita e de cima
+else if (encontrou_dir==1)
 and (encontrou_cim==1)
 and (encontrou_esq==0)
 and (encontrou_bai==0) {
@@ -136,8 +208,13 @@ and (encontrou_bai==0) {
     lado_cim=-1;
     lado_esq=2;
     lado_bai=1;
-} else
-if (encontrou_dir==0)
+}
+//Caso 7:
+//  X
+// XX0
+//  0
+//Desativa a textura da esquerda e de cima
+else if (encontrou_dir==0)
 and (encontrou_cim==1)
 and (encontrou_esq==1)
 and (encontrou_bai==0) {
@@ -145,8 +222,13 @@ and (encontrou_bai==0) {
     lado_cim=-1;
     lado_esq=-1;
     lado_bai=2;
-} else
-if (encontrou_dir==0)
+}
+//Caso 8:
+//  0
+// XX0
+//  X
+//Desativa a textura da esquerda e de baixo
+else if (encontrou_dir==0)
 and (encontrou_cim==0)
 and (encontrou_esq==1)
 and (encontrou_bai==1) {
@@ -154,8 +236,13 @@ and (encontrou_bai==1) {
     lado_cim=1;
     lado_esq=-1;
     lado_bai=-1;
-} else
-if (encontrou_dir==1)
+}
+//Caso 9:
+//  0
+// 0XX
+//  X
+//Desativa a textura da direita e de baixo
+else if (encontrou_dir==1)
 and (encontrou_cim==0)
 and (encontrou_esq==0)
 and (encontrou_bai==1) {
@@ -163,8 +250,13 @@ and (encontrou_bai==1) {
     lado_cim=2;
     lado_esq=1;
     lado_bai=-1;
-} else
-if (encontrou_dir==1)
+}
+//Caso 10:
+//  0
+// XXX
+//  0
+//Desativa a textura da esquerda e da direita
+else if (encontrou_dir==1)
 and (encontrou_cim==0)
 and (encontrou_esq==1)
 and (encontrou_bai==0) {
@@ -172,8 +264,13 @@ and (encontrou_bai==0) {
     lado_cim=choose(3,4,5,6);
     lado_esq=-1;
     lado_bai=choose(3,4,5,6);
-} else
-if (encontrou_dir==0)
+}
+//Caso 11:
+//  X
+// 0X0
+//  X
+//Desativa a textura de cima e de baixo
+else if (encontrou_dir==0)
 and (encontrou_cim==1)
 and (encontrou_esq==0)
 and (encontrou_bai==1) {
@@ -181,8 +278,13 @@ and (encontrou_bai==1) {
     lado_cim=-1;
     lado_esq=choose(3,4,5,6);
     lado_bai=-1;
-} else
-if (encontrou_dir==1)
+}
+//Caso 12:
+//  X
+// XXX
+//  0
+//Habilita somente a textura de baixo
+else if (encontrou_dir==1)
 and (encontrou_cim==1)
 and (encontrou_esq==1)
 and (encontrou_bai==0) {
@@ -191,7 +293,12 @@ and (encontrou_bai==0) {
     lado_esq=-1;
     lado_bai=choose(3,4,5,6);
 }
-if (encontrou_dir==0)
+//Caso 13:
+//  X
+// XX0
+//  X
+//Habilita somente a textura da direita
+else if (encontrou_dir==0)
 and (encontrou_cim==1)
 and (encontrou_esq==1)
 and (encontrou_bai==1) {
@@ -200,7 +307,12 @@ and (encontrou_bai==1) {
     lado_esq=-1;
     lado_bai=-1;
 }
-if (encontrou_dir==1)
+//Caso 14:
+//  0
+// XXX
+//  X
+//Habilita somente a textura de cima
+else if (encontrou_dir==1)
 and (encontrou_cim==0)
 and (encontrou_esq==1)
 and (encontrou_bai==1) {
@@ -209,7 +321,12 @@ and (encontrou_bai==1) {
     lado_esq=-1;
     lado_bai=-1;
 }
-if (encontrou_dir==1)
+//Caso 15:
+//  X
+// 0XX
+//  X
+//Habilita somente a textura da esquerda
+else if (encontrou_dir==1)
 and (encontrou_cim==1)
 and (encontrou_esq==0)
 and (encontrou_bai==1) {
@@ -218,7 +335,12 @@ and (encontrou_bai==1) {
     lado_esq=choose(3,4,5,6);
     lado_bai=-1;
 }
-if (encontrou_dir==1)
+//Caso 16:
+//  X
+// XXX
+//  X
+//Desativa todas as texturas laterais
+else if (encontrou_dir==1)
 and (encontrou_cim==1)
 and (encontrou_esq==1)
 and (encontrou_bai==1) {
@@ -249,30 +371,42 @@ and (encontrou_bai==1) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Cima:
+            <string>//Código de desenho do bloco:
+
+//Aqui, verifica se a textura é maior que -1 (isto é, ativada), e se a visualização da câmera (direcao_view)
+//está em uma posição que a lateral deve ser desenhada!
+//No meio, as cores são setadas em branco, cinza claro, cinza e cinza claro,
+//para fazer o efeito de shading, como se a luz estivesse vinda de algum lugar.
+
+//Cima:
 draw_set_color(c_white);
-//if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_view&lt;180)) {
+if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_view&lt;180)) {
     d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(spr_block,lado_cim),1,1);
-//}
+}
+
 //Topo:
 if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(spr_block,lado_topo),1,1); }
+
 //Direita:
 draw_set_color(c_ltgray);
-//if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direcao_view&lt;90)) or ((obj_camera.direcao_view&gt;270) and (obj_camera.direcao_view&lt;450))) {
+if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direcao_view&lt;90)) or ((obj_camera.direcao_view&gt;270) and (obj_camera.direcao_view&lt;450))) {
     d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_block,lado_dir),1,1);
-//}
+}
+
 //Baixo:
 draw_set_color(c_gray);
-//if (lado_bai&gt;-1) and (((obj_camera.direcao_view&gt;180) and (obj_camera.direcao_view&lt;360)) or ((obj_camera.direcao_view&gt;-180) and (obj_camera.direcao_view&lt;0))) {
+if (lado_bai&gt;-1) and (((obj_camera.direcao_view&gt;180) and (obj_camera.direcao_view&lt;360)) or ((obj_camera.direcao_view&gt;-180) and (obj_camera.direcao_view&lt;0))) {
     d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(spr_block,lado_bai),1,1);
-//}
+}
+
 //Base:
 if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(spr_block,lado_base),1,1); }
+
 //Esquerda:
 draw_set_color(c_ltgray);
-//if (lado_esq&gt;-1) and ((obj_camera.direcao_view&gt;90) and (obj_camera.direcao_view&lt;270)) {
+if (lado_esq&gt;-1) and ((obj_camera.direcao_view&gt;90) and (obj_camera.direcao_view&lt;270)) {
     d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(spr_block,lado_esq),1,1);
-//}
+}
 </string>
           </argument>
         </arguments>
