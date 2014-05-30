@@ -9,6 +9,8 @@
     <sprite>sprites\spr_gomez</sprite>
     <sprite>sprites\spr_block</sprite>
     <sprite>sprites\spr_nuvem</sprite>
+    <sprite>sprites\spr_editor_cursor</sprite>
+    <sprite>sprites\spr_editor_grid</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -21,9 +23,14 @@
     <object>objects\obj_block</object>
     <object>objects\obj_camera</object>
     <object>objects\obj_camera_look</object>
+    <object>objects\obj_editor_camera</object>
+    <object>objects\obj_editor_camera_look</object>
+    <object>objects\obj_editor_cursor</object>
+    <object>objects\obj_editor_block</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\room_editor</room>
+    <room>rooms\room_teste</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
