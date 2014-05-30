@@ -25,7 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>z=160;
+            <string>//Código de criação do objeto que é responsável por suavizar a movimentação da câmera.
+
+//De início, esse objeto seta a variável z dele para 160, apenas para ter um efeito de a câmera vindo de cima, e parando no personagem.
+//Boiolice. Tenho que tirar depois.
+z=160;
 </string>
           </argument>
         </arguments>
@@ -48,12 +52,20 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (x&lt;obj_gomez.x) { x+=(obj_gomez.x-x)/6; }
+            <string>//Códigos que são executados a cada frame:
+
+//No caso, para a suavização dar certo, o objeto pega a posição x, y e z do obj_gomez e
+//faz um cálculo para pegar a diferença entre eles e o x, y e z próprio, e essa diferença
+//é dividida por 6, só pra fazer a suavização.
+if (x&lt;obj_gomez.x) { x+=(obj_gomez.x-x)/6; }
 if (x&gt;obj_gomez.x) { x-=(x-obj_gomez.x)/6; }
 if (y&lt;obj_gomez.y) { y+=(obj_gomez.y-y)/6; }
 if (y&gt;obj_gomez.y) { y-=(y-obj_gomez.y)/6; }
 if (z&lt;obj_gomez.z) { z+=(obj_gomez.z-z)/6; }
 if (z&gt;obj_gomez.z) { z-=(z-obj_gomez.z)/6; }
+
+//E, pra tentar deixar tudo com um ar mais "pixelizado", sem ter "meio-pixels" por causa do 3D,
+//as variáveis x, y e z dele próprio são arredondadas.
 x=round(x);
 y=round(y);
 z=round(z);

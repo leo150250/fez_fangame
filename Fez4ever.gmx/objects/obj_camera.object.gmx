@@ -25,19 +25,40 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_start();
+            <string>//Código para ser executado na câmera (DO JOGO!), logo após o início.
+//Esse objeto tem código pra caramba, vai levar séculos para comentar...
+
+//Inicia o módulo 3D e desativa quaisquer vesquícios de iluminação.
+d3d_start();
 d3d_set_lighting(false);
+
+//A variável direção é a variável absoluta da direção que o obj_camera está.
+//(0 = direita da room; 90 = topo da room; 180 = esquerda da room; 270 = base da room)
+//Ela não tem suavização, pois quem faz a suavização é a variável direcao_view. É a partir dela que acontece o efeitinho legal de tudo girar.
 direcao=0;
 direcao_view=direcao;
-//window_set_fullscreen(true);
-//view_wview[0]=display_get_width();
-//view_hview[0]=display_get_height();
-//view_wport[0]=display_get_width();
-//view_hport[0]=display_get_height();
-//display_set_gui_size(view_wport[0],view_hport[0]);
+
+//distorcao = variável de debug. É ela que deixa a câmera um pouco pra cima ou um pouco pra baixo na visualização em perspectiva.
 distorcao=0;
+
+//visao = ângulo de abertura da câmera. Está em um valor minúsculo pois a câmera está MUITO afastada dos objetos, precisando de um zoom absurdo.
+//Jogos FPS normais tendem a ter esse valor entre 60 e 85.
 visao=0.001;
+
+//distancia = distância da câmera de seu foco. Está em um valor extremamente alto para pode realizar o efeito da projeção ortogonal.
+//Jogos TPS (Third-person Shooter) costumam ter esse valor entre 96 e 256.
 distancia=10000000;
+
+//Funções para definir o jogo em tela-cheia.
+//Descomente-as somente SE QUISER DEIXAR O JOGO EM TELA-CHEIA. Durante o desenvolvimento, prefiro ele em janela mesmo.
+/*
+window_set_fullscreen(true);
+view_wview[0]=display_get_width();
+view_hview[0]=display_get_height();
+view_wport[0]=display_get_width();
+view_hport[0]=display_get_height();
+display_set_gui_size(view_wport[0],view_hport[0]);
+*/
 </string>
           </argument>
         </arguments>
@@ -60,19 +81,33 @@ distancia=10000000;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (direcao&lt;0) {
+            <string>//Código a ser executado a cada frame:
+
+/*É necessário estabelecer um limite entre 0 e 359.99999999999999999999999999999999999999999999999999(INF),
+pois as variáveis de sistema relacionadas a direção em graus radianos não passam disso. Então, para fins de compatibilidade,
+foi inserido um limite.
+É claro que, no caso da direcao_view, ela vai obter números negativos SIM, principalmente quando alterar a direção de 270 para 0,
+mas isso é para que se faça a compatibilidade do negócio, senão a câmera iria do 270 para o 0 passando pelo 180 e pelo 90, o que não seria legal de ver.*/
+
+//Se a variável direcao ficar menor que 0, então aumenta-se 360 nos cálculos das variáveis direcao e direcao_view.
+if (direcao&lt;0) {
     direcao+=360;
     direcao_view+=360;
 }
+//Se a variável direcao ficar maior ou igual que 360, então diminui-se 360 nos cálculos das variáveis direcao e direcao_view.
 if (direcao&gt;=360) {
     direcao-=360;
     direcao_view-=360;
 }
+
+//As funções abaixo são para causar o efeito de suavização na direcao_view.
+//Isto é, apenas pega o valor da diferença entre a direcao e a direcao_view e divide por 5. No próximo frame, faz de novo, e no próximo, e no próximo...
 if (direcao_view&lt;direcao) {
     direcao_view+=(direcao-direcao_view)/5;
 } else if (direcao_view&gt;direcao) {
     direcao_view-=(direcao_view-direcao)/5;
 }
+//...até que a diferença entre as variáveis seja menor que 0.1... Nesse caso, aí a variável é arredondada, para poder tratá-la melhor, sem "quebrados"!
 if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
     direcao_view=round(direcao_view);
 }
@@ -98,7 +133,12 @@ if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>distorcao=32;
+            <string>//Códigos para quando a tecla W está sendo pressionada:
+
+//ISSO É DEBUG! DEBUUUG! TEM QUE TIRAR ISSO NO PRODUTO FINAL!
+//Apenas define a distorção da câmera para 32, deixando a visão de cima pra baixo, como nos TPS's.
+//Funciona só na projeção de perspectiva.
+distorcao=32;
 </string>
           </argument>
         </arguments>
@@ -121,7 +161,12 @@ if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>distorcao=-32;
+            <string>//Códigos para quando a tecla S está sendo pressionada:
+
+//ISSO É DEBUG! DEBUUUG! TEM QUE TIRAR ISSO NO PRODUTO FINAL!
+//Apenas define a distorção da câmera para -32, deixando a visão de baixo pra cima.
+//Funciona só na projeção de perspectiva.
+distorcao=-32;
 </string>
           </argument>
         </arguments>
@@ -144,7 +189,12 @@ if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(0,0,direcao);
+            <string>//Código para o desenho do HUD do jogo
+
+//Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
+//Tenho que tirar isso mais tarde.
+//DEBUG!
+draw_text(0,0,direcao);
 draw_text(0,32,direcao_view);
 draw_text(0,64,obj_gomez.atual_z);
 draw_text(0,96,visao);
@@ -171,12 +221,26 @@ draw_text(0,128,distancia);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_alpha(1);
+            <string>//Código para o evento de desenha da câmera
+
+//É aqui que a mágica acontece.
+//Primeiro, setamos para que a camada alpha da projeção seja 1, pra não ficar nada transparente...
+draw_set_alpha(1);
+//Depois, setamos a coloração da projeção para c_white, para que nada sofra nenhuma alteração de cores...
 draw_set_color(c_white);
+//Em seguida, fazemos o fundo da fase com desenhos de retângulos coloridos em 2D:
+//Extremo céu
 draw_rectangle_color(0,-(obj_camera_look.z/5)+480,view_wview[0],480,c_aqua,c_aqua,c_blue,c_blue,false);
+//Céu mediano
 draw_rectangle_color(0,-(obj_camera_look.z/5),view_wview[0],-(obj_camera_look.z/5)+480,c_white,c_white,c_aqua,c_aqua,false);
+//Céu de baixo
 draw_rectangle_color(0,0,view_wview[0],-(obj_camera_look.z/5),c_white,c_white,c_white,c_white,false);
-draw_rectangle_color(0,0,view_wview[0],(view_hview[0]/2)-obj_camera_look.z,c_blue,c_blue,c_blue,c_blue,false);
+//Depois, fazemos uma tentativa fracassada de criar um negócio de água:
+draw_rectangle_color(0,0,view_wview[0],(view_hview[0]/2)-(obj_camera_look.z*2),c_blue,c_blue,c_blue,c_blue,false);
+//E depois, fazemos a projeção do mundo 3D.
+//Essa projeção que é o truque. O lengthdir_x/y faz um cálculo para que a câmera esteja sempre em um círculo em volta do personagem,
+//de raio de acordo com a variável distancia, na posição do direcao_view.
+//Ainda preciso corrigir a taxa de aspecto do 3D (aquele 640/480 lá no final).
 d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj_camera_look.y+lengthdir_y(distancia,direcao_view),obj_camera_look.z+distorcao,obj_camera_look.x,obj_camera_look.y,obj_camera_look.z,0,0,1,visao,640/480,(distancia/2),(distancia*2));
 </string>
           </argument>
@@ -200,7 +264,11 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>visao+=0.001;
+            <string>//Código para quando apertar a tecla Z
+
+//Eu estava fazendo isso para ver qual é a melhor projeção para a visão ortogonal.
+//DEBUG!
+visao+=0.001;
 </string>
           </argument>
         </arguments>
@@ -223,7 +291,11 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>distancia+=1000;
+            <string>//Código para quando apertar a tecla Q
+
+//Eu estava fazendo isso para ver qual é a melhor projeção para a visão ortogonal.
+//DEBUG!
+distancia+=1000;
 </string>
           </argument>
         </arguments>
@@ -246,7 +318,11 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>distancia-=1000;
+            <string>//Código para quando apertar a tecla E
+
+//Eu estava fazendo isso para ver qual é a melhor projeção para a visão ortogonal.
+//DEBUG!
+distancia-=1000;
 </string>
           </argument>
         </arguments>
@@ -269,7 +345,10 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>direcao-=90;
+            <string>//Código para quando apertar a tecla D
+
+//Altera a direção da câmera em -90, girando-a no sentido anti-horário, de acordo com a visão do mapa.
+direcao-=90;
 </string>
           </argument>
         </arguments>
@@ -292,7 +371,11 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>visao-=0.001;
+            <string>//Código para quando apertar a tecla C
+
+//Eu estava fazendo isso para ver qual é a melhor projeção para a visão ortogonal.
+//DEBUG!
+visao-=0.001;
 </string>
           </argument>
         </arguments>
@@ -315,7 +398,10 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>direcao+=90;
+            <string>//Código para quando apertar a tecla A
+
+//Altera a direção da câmera em +90, girando-a no sentido horário, de acordo com a visão do mapa.
+direcao+=90;
 </string>
           </argument>
         </arguments>
@@ -338,7 +424,10 @@ d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>game_end();
+            <string>//Código para o evento de apertar a tecla ESC
+
+//Faz algo muito importante para os jogos atuais: Sai do jogo.
+game_end();
 </string>
           </argument>
         </arguments>
