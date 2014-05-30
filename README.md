@@ -13,6 +13,15 @@ Lista de afazeres:
 
 Diário de Bordo
 ===============
+30 de Maio de 2014:
+-------------------
+ 
+Comentários, comentários e comentários... O dia praticamente se envolveu somente com comentários. Porém, esses comentários todos foram para um bom propósito: Agora o código-fonte do jogo está disponível no GitHub: https://github.com/leo150250/fez_fangame
+
+Nesses comentários, andei encontrando alguns bugs menores e tive uma percepção elevada de o que eu estava fazendo... Tem códigos que estão ali para nada, e tem códigos que não fazem corretamente o que deveriam fazer. Tudo isso por causa de comentários, olha só!
+
+Como uma maneira de tentar desfocar de coisas que estão bugadas pra pensar no que fazer com elas depois, comecei o desenvolvimento do editor de fases. O problema é que tem alguns bugs, principalmente com a detecção dos blocos sobre qual bloco é vizinho de qual, o que os faz não calcular direito quem é vizinho de quem, complicando um pouco as coisas. O interessante é que usei o mesmo código que usei nos blocos da fase, mas só agora tive a oportunidade de ver que ele tá com problema. Mas o editor de fases parece excelente, apesar de apenas gravar as fases na memória e não dar pra jogar a fase ainda...
+
 29 de Maio de 2014:
 -------------------
 
