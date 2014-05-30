@@ -16,7 +16,6 @@
     <script>scripts\scr_colisao.gml</script>
     <script>scripts\scr_updatez.gml</script>
   </scripts>
-  <shaders name="shaders"/>
   <objects name="objects">
     <object>objects\obj_gomez</object>
     <object>objects\obj_block</object>
