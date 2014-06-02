@@ -3,19 +3,35 @@
 
 //Pega as IDs dos obj_block que estão embaixo do obj_gomez
 //Apesar desse primeiro não ser utilizado, é bom deixar aqui... Vai que... né...?
-id_chao=instance_position(x,y,obj_block);
 //Esses dois aqui são a área de abrangência do obj_gomez.
-id_chao1=instance_position(x-4,y-4,obj_block);
-id_chao2=instance_position(x+4,y+4,obj_block);
-
 //DE CARA, se não pegar nenhuma ID, então significa que o personagem está em queda livre.
 //Seta a variável zspeed para -0.2 relativos, e negativeia o pulo dele, pra ele não pular no ar.
 //E, claro, atualiza a profundidade do personagem. Vai que o "chão" está em outra profundidade? Não queremos
 //que o Gomez atravesse o chão sem mais nem menos, né?
+chao_ok=false;
+with (obj_block) {
+    if (x==other.posicao_xblock-8) and (y==other.posicao_yblock-8) {
+        if (lado_topo>-1)
+        and (other.z<=z+16)
+        and (other.z>z+15+other.zspeed) {
+            other.zspeed=0;
+            other.z=z+16;
+            other.pular=2;
+            other.chao_ok=true;
+            other.id_chao=id;
+        }
+    }
+}
+if (chao_ok==false) {
+    scr_updatez(true);
+    zspeed-=0.2;
+    pular-=1;
+}
+/*Código antigo
 if (id_chao1==noone) and (id_chao2==noone) {
     zspeed-=0.2;
     pular-=1;
-    scr_updatez();
+    scr_updatez(false);
 }
 //Mas, e se ele encontrar um chão?
 //Se encontrá-lo no id_chao1, aí ele verifica se a altura que o Gomez está é a altura da superfície do chão.
@@ -40,12 +56,12 @@ else {
                 } else {
                     zspeed-=0.2;
                     pular-=1;
-                    scr_updatez();
+                    scr_updatez(false);
                 }
             } else {
                 zspeed-=0.2;
                 pular-=1;
-                scr_updatez();
+                scr_updatez(false);
             }
         }
     } else {
@@ -57,12 +73,12 @@ else {
             } else {
                 zspeed-=0.2;
                 pular-=1;
-                scr_updatez();
+                scr_updatez(false);
             }
         } else {
             zspeed-=0.2;
             pular-=1;
-            scr_updatez();
+            scr_updatez(false);
         }
     }
-}
+}*/

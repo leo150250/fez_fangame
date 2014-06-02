@@ -44,7 +44,7 @@ repeat(real(num_blocks)) {
     create_block=instance_create(real(create_block_x),real(create_block_y),obj_block);
     create_block.z=real(create_block_z);
 }
-create_gomez=instance_create(real(create_gomez_x),real(create_gomez_y),obj_gomez);
+create_gomez=instance_create(real(create_gomez_x)+8,real(create_gomez_y)+8,obj_gomez);
 create_gomez.z=real(create_gomez_z);
 
 </string>

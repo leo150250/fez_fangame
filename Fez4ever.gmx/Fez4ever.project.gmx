@@ -4,13 +4,17 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_sweep</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_gomez</sprite>
     <sprite>sprites\spr_block</sprite>
     <sprite>sprites\spr_nuvem</sprite>
     <sprite>sprites\spr_editor_cursor</sprite>
     <sprite>sprites\spr_editor_grid</sprite>
+    <sprite>sprites\mask_block</sprite>
+    <sprite>sprites\mask_none</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -31,9 +35,9 @@
     <object>objects\obj_loader</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\room_teste</room>
     <room>rooms\room_teste2</room>
     <room>rooms\room_editor</room>
-    <room>rooms\room_teste</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

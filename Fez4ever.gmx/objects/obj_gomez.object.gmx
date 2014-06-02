@@ -6,7 +6,7 @@
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>&lt;undefined&gt;</maskName>
+  <maskName>mask_block</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -30,7 +30,7 @@
 //Declaração de variáveis de fins técnicos:
 
 //z = A altura que o personagem inicia.
-z=16; 
+z=32; 
 
 //zspeed = A velocidade da alteração de altura.
 //Quando o personagem pula, é esta variável que deve ser alterada, assim como quando ele está em queda livre.
@@ -45,11 +45,12 @@ friction=1;
 //O personagem só pode pular caso essa variável esteja MAIOR que 0.
 pular=0;
 
-//posicao_xblock &amp; posicao_yblock = Variáveis de coordenadas x e y relativas aos cubos.
+//posicao_xblock, posicao_yblock e posicao_zblock = Variáveis de coordenadas x, y e z relativas aos cubos.
 //Essas variáveis servem para calcular qual é o bloco que está logo abaixo do jogador.
-//Na função que elas estão, elas são sempre recalculadas de acordo com a posição x e y do jogador para sempre caber em um plano 16x16.
+//Na função que elas estão, elas são sempre recalculadas de acordo com a posição x, y e z do jogador para sempre caber em um plano 16x16.
 posicao_xblock=0;
 posicao_yblock=0;
+posicao_zblock=0;
 
 //atual_z = Variável de altura do bloco em que o jogador está.
 //Quando o personagem fica em cima de um bloco (não necessariamente PISANDO nele), essa variável obtém o valor z desse bloco, para que, caso haja
@@ -60,6 +61,21 @@ atual_z=0;
 //Atualmente, não é usada... Mas vai que... né...
 //Ela só obtém o último valor utilizado pela variável atual_z.
 anterior_z=0;
+
+//atualizar_profundidade = Variável referente à atualização de profundidade do personagem
+//Deve ser acionada logo após uma troca de câmera, e quando o personagem começar a se mover na nova câmera.
+atualizar_profundidade=false;
+
+//id_chao = Variável que armazena a ID do chão que o personagem está.
+id_chao=id;
+
+//bloqueio = Variável que bloqueia a computação de blocos em profundidades não-visualizadas.
+//O santo graal da profundidade! Sem essa variável, estamos perdidos!
+bloqueio=false;
+
+//pause = Variável que pauseia o Gomez.
+//Quando essa variável estiver ativada, não pode ocorrer alterações na altura do personagem, nem atualização de profundidade, nem NADA.
+pause=false;
 
 ////////////////////////////////////////////////////////
 //Declaração de variáveis de fins estéticos (ou quase!):
@@ -92,6 +108,29 @@ armazena_view=0;
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>pause=false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="1">
       <action>
         <libid>1</libid>
@@ -114,7 +153,9 @@ armazena_view=0;
 //Sempre que o frame iniciar, seta a variável do sistema image_single para 0, para fazer com que,
 //se neste frame não for computada nenhuma outra ação que mude o visual do personagem, ele deve voltar
 //então para a imagem principal, que é ele parado, sem fazer nada.
-image_single=0;
+if (pause==false) {
+    image_single=0;
+}
 </string>
           </argument>
         </arguments>
@@ -145,10 +186,32 @@ vspeed=median(-3,vspeed,3);
 
 //Põe a função zspeed para funcionar, alterando o valor da variável z conforme seu valor.
 //Assim como ocorre com as variáveis hspeed e vspeed.
-z+=zspeed;
+if (pause==false) { z+=zspeed; }
+
+//Obtém a posição atual do jogador...
+posicao_xblock=x;
+posicao_yblock=y;
+posicao_zblock=z;
+//E calcula a posição atual para que ela seja reduzida a um valor entre -8 e 8.
+for (i=posicao_xblock; i&gt;=0; i-=16) {
+    posicao_xblock=i;
+}
+for (i=posicao_yblock; i&gt;=0; i-=16) {
+    posicao_yblock=i;
+}
+for (i=posicao_zblock; i&gt;=0; i-=16) {
+    posicao_zblock=i;
+}
+//Quando isso acontecer, então a posição_block irá obter um cálculo da diferença entre o obj_gomez e a variável,
+//e acrescentará 8.
+//Isso fará com que o posicao_xblock/yblock/zblock peguem as coordenadas do bloco que está no meio
+//de onde o jogador está. É bem útil para obter dados precisos de colisão.
+posicao_xblock=(obj_gomez.x-posicao_xblock)+8;
+posicao_yblock=(obj_gomez.y-posicao_yblock)+8;
+posicao_zblock=(obj_gomez.z-posicao_zblock)+8;
 
 //Executa o script de checagem de colisão.
-scr_colisao();
+if (pause==false) { scr_colisao(); }
 
 //Arredonda os valores das variáveis x e y, para evitar números quebrados...
 x=round(x);
@@ -156,6 +219,7 @@ y=round(y);
 
 //Se a armazena_view for maior que 0, então deve-se começar a segurar a visão da câmera.
 //DEVE SER REMOVIDO NO PRODUTO FINAL!
+//DEBUG!
 if (armazena_view!=0) {
     obj_camera.direcao_view+=30;
 }
@@ -184,17 +248,23 @@ if (armazena_view!=0) {
             <string>//Código executados sempre que a tecla para a direita estiver pressionada:
 
 //BLAH BLAH BLAH WHISKAS SACHÊ é a mesma coisa do evento da tecla para a esquerda. Leia lá para referências, não vou digitar tudo de novo.
-direcao=1;
-if (obj_camera.direcao=0) { vspeed-=2; }
-if (obj_camera.direcao=90) { hspeed-=2; }
-if (obj_camera.direcao=180) { vspeed+=2; }
-if (obj_camera.direcao=270) { hspeed+=2; }
-scr_updatez();
-andar+=0.2;
-if (andar&gt;5) {
-    andar=0;
+if (pause==false) {
+    direcao=1;
+    if (obj_camera.direcao=0) { vspeed-=2; }
+    if (obj_camera.direcao=90) { hspeed-=2; }
+    if (obj_camera.direcao=180) { vspeed+=2; }
+    if (obj_camera.direcao=270) { hspeed+=2; }
+    if (atualizar_profundidade==true) {
+        scr_updatez(true);
+    } else {
+        scr_updatez(false);
+    }
+    andar+=0.2;
+    if (andar&gt;5) {
+        andar=0;
+    }
+    image_single=1+round(andar);
 }
-image_single=1+round(andar);
 </string>
           </argument>
         </arguments>
@@ -219,38 +289,45 @@ image_single=1+round(andar);
             <kind>1</kind>
             <string>//Código executados sempre que a tecla para a esquerda estiver pressionada:
 
-//Muda a direção visual do personagem para a esquerda
-direcao=-1;
-
-//Faz o personagem andar de acordo com a posição atual da câmera.
-//No caso, a "direcao" da câmera é equivalente a graus radianos.
-//0 = câmera para a direita da room;
-//Para fazer o personagem "andar para os lados" (na tela!), deve-se alterar a posição y dele.
-if (obj_camera.direcao=0) { vspeed+=2; }
-//90 = câmera para o topo da room;
-//Para fazer o personagem "andar para os lados" (na tela, lembre-se!), deve-se alterar a posição x dele.
-if (obj_camera.direcao=90) { hspeed+=2; }
-//180 = câmera para a esquerda da room;
-//Para fazer o personagem "andar para os lados" (NA TELA, PÔ!), deve-se altera a posição y dele MAS, invertida, pois a câmera está do outro lado da room agora.
-if (obj_camera.direcao=180) { vspeed-=2; }
-//270 = câmera para a base da room;
-//EU JÁ FALEI QUE PRA FAZER O PERSONAGEM "ANDAR PARA OS LADOS" (NAAA TEEELAAA!!!), deve-se alterar a posição x dele, de modo INVERTIDO porque... Ah, deixa quieto!
-if (obj_camera.direcao=270) { hspeed-=2; }
-
-//Executa o script de atualização da PROFUNDIDADE do personagem.
-//Este "z" o qual o script se refere não é a ALTURA, e sim a PROFUNDIDADE em relação a câmera. Confuso, não?
-//Se esse script não for executado, o personagem vai cair assim que deixar de encontrar um chão na frente dele, mesmo se na visão ortogonal estiver constando o chão.
-//Se você habilitar o modo de visualização 3D do mundo, vai notar o script funcionando
-//(e o personagem alterando de posição constantemente, mas isso não é visível na visão ortogonal! :D)
-scr_updatez();
-
-//Só atualiza os frames de do personagem andando. São 5 frames então, sempre que passar de 5, retorna a 0.
-andar+=0.2;
-if (andar&gt;5) {
-    andar=0;
+if (pause==false) {
+    //Muda a direção visual do personagem para a esquerda
+    direcao=-1;
+    
+    //Faz o personagem andar de acordo com a posição atual da câmera.
+    //No caso, a "direcao" da câmera é equivalente a graus radianos.
+    //0 = câmera para a direita da room;
+    //Para fazer o personagem "andar para os lados" (na tela!), deve-se alterar a posição y dele.
+    if (obj_camera.direcao=0) { vspeed+=2; }
+    //90 = câmera para o topo da room;
+    //Para fazer o personagem "andar para os lados" (na tela, lembre-se!), deve-se alterar a posição x dele.
+    if (obj_camera.direcao=90) { hspeed+=2; }
+    //180 = câmera para a esquerda da room;
+    //Para fazer o personagem "andar para os lados" (NA TELA, PÔ!), deve-se altera a posição y dele MAS, invertida, pois a câmera está do outro lado da room agora.
+    if (obj_camera.direcao=180) { vspeed-=2; }
+    //270 = câmera para a base da room;
+    //EU JÁ FALEI QUE PRA FAZER O PERSONAGEM "ANDAR PARA OS LADOS" (NAAA TEEELAAA!!!), deve-se alterar a posição x dele, de modo INVERTIDO porque... Ah, deixa quieto!
+    if (obj_camera.direcao=270) { hspeed-=2; }
+    
+    //Executa o script de atualização da PROFUNDIDADE do personagem.
+    //Este "z" o qual o script se refere não é a ALTURA, e sim a PROFUNDIDADE em relação a câmera. Confuso, não?
+    //Se esse script não for executado, o personagem vai cair assim que deixar de encontrar um chão na frente dele, mesmo se na visão ortogonal estiver constando o chão.
+    //Se você habilitar o modo de visualização 3D do mundo, vai notar o script funcionando
+    //(e o personagem alterando de posição constantemente, mas isso não é visível na visão ortogonal! :D)
+    //E, se o atualizar_profundidade for verdadeiro, deve-se FORÇAR essa atualização.
+    if (atualizar_profundidade==true) {
+        scr_updatez(true);
+    } else {
+        scr_updatez(false);
+    }
+    
+    //Só atualiza os frames de do personagem andando. São 5 frames então, sempre que passar de 5, retorna a 0.
+    andar+=0.2;
+    if (andar&gt;5) {
+        andar=0;
+    }
+    //E, pra atualizar mesmo os frames, pula-se o primeiro, e pega o valor ARREDONDADO de "andar":
+    image_single=1+round(andar);
 }
-//E, pra atualizar mesmo os frames, pula-se o primeiro, e pega o valor ARREDONDADO de "andar":
-image_single=1+round(andar);
 </string>
           </argument>
         </arguments>
@@ -277,8 +354,19 @@ image_single=1+round(andar);
 
 //Se a variável pular estiver maior que 0, então o personagem pode pular, setando a zspeed para um valor positivo.
 //(positivo = pra cima; negativo = pra baixo)
-if (pular&gt;0) {
-    zspeed=3.5;
+if (pause==false) {
+    if (pular&gt;0) {
+        if (keyboard_check(vk_down)) {
+            scr_updatez(true);
+            if (obj_camera.direcao==0) { x+=16 };
+            if (obj_camera.direcao==90) { y-=16 };
+            if (obj_camera.direcao==180) { x-=16 };
+            if (obj_camera.direcao==270) { y+=16 };
+            z-=1;
+        } else {
+            zspeed=3.5;
+        }
+    }
 }
 </string>
           </argument>

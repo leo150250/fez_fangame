@@ -194,11 +194,10 @@ distorcao=-32;
 //Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
 //Tenho que tirar isso mais tarde.
 //DEBUG!
-draw_text(0,0,direcao);
-draw_text(0,32,direcao_view);
-draw_text(0,64,obj_gomez.atual_z);
-draw_text(0,96,visao);
-draw_text(0,128,distancia);
+draw_text(0,0,"obj_camera.direcao: "+string(direcao));
+draw_text(0,32,"obj_camera.direcao_view: "+string(direcao_view));
+draw_text(0,64,"obj_gomez.atual_z: "+string(obj_gomez.atual_z));
+draw_text(0,96,"obj_gomez.bloqueio: "+string(obj_gomez.bloqueio));
 </string>
           </argument>
         </arguments>
@@ -348,7 +347,15 @@ distancia-=1000;
             <string>//Código para quando apertar a tecla D
 
 //Altera a direção da câmera em -90, girando-a no sentido anti-horário, de acordo com a visão do mapa.
-direcao-=90;
+if (obj_gomez.pause==false) {
+    direcao-=90;
+    audio_play_sound(snd_sweep,1,false);
+    
+    //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.
+    obj_gomez.pause=true;
+    obj_gomez.alarm[0]=20;
+    obj_gomez.atualizar_profundidade=true;
+}
 </string>
           </argument>
         </arguments>
@@ -401,7 +408,15 @@ visao-=0.001;
             <string>//Código para quando apertar a tecla A
 
 //Altera a direção da câmera em +90, girando-a no sentido horário, de acordo com a visão do mapa.
-direcao+=90;
+if (obj_gomez.pause==false) {
+    direcao+=90;
+    audio_play_sound(snd_sweep,1,false);
+    
+    //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.
+    obj_gomez.pause=true;
+    obj_gomez.alarm[0]=20;
+    obj_gomez.atualizar_profundidade=true;
+}
 </string>
           </argument>
         </arguments>

@@ -6,7 +6,7 @@
   <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>&lt;undefined&gt;</maskName>
+  <maskName>mask_block</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -384,29 +384,57 @@ if (bloco_topo==noone) and (bloco_base==noone) {
     lado_base=28;
 }
 if (bloco_topo==noone) and (bloco_base!=noone) {
-    lado_dir+=7;
-    lado_cim+=7;
-    lado_esq+=7;
-    lado_bai+=7;
+    if (lado_dir!=-1) { lado_dir+=7; }
+    if (lado_cim!=-1) { lado_cim+=7; }
+    if (lado_esq!=-1) { lado_esq+=7; }
+    if (lado_bai!=-1) { lado_bai+=7; }
     lado_topo=28;
     lado_base=-1;
 }
 if (bloco_topo!=noone) and (bloco_base==noone) {
-    lado_dir+=14;
-    lado_cim+=14;
-    lado_esq+=14;
-    lado_bai+=14;
+    if (lado_dir!=-1) { lado_dir+=14; }
+    if (lado_cim!=-1) { lado_cim+=14; }
+    if (lado_esq!=-1) { lado_esq+=14; }
+    if (lado_bai!=-1) { lado_bai+=14; }
     lado_topo=-1;
     lado_base=28;
 }
 if (bloco_topo!=noone) and (bloco_base!=noone) {
-    lado_dir+=21;
-    lado_cim+=21;
-    lado_esq+=21;
-    lado_bai+=21;
+    if (lado_dir!=-1) { lado_dir+=21; }
+    if (lado_cim!=-1) { lado_cim+=21; }
+    if (lado_esq!=-1) { lado_esq+=21; }
+    if (lado_bai!=-1) { lado_bai+=21; }
     lado_topo=-1;
     lado_base=-1;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (z==obj_gomez.posicao_zblock-24) {
+    mask_index=mask_block;
+} else {
+    mask_index=mask_none;
+}
+
 </string>
           </argument>
         </arguments>
