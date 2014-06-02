@@ -1,6 +1,6 @@
 //Código de atualização da profundidade do personagem em relação a câmera
 
-//Aqui o pau comeu solto, com creme de chantilly e picles.
+//Aqui o pau comeu solto, com azeitonas pretas em cream cheese e picles ao molho barbecue.
 
 //Se o Gomez tiver autorização pra pular, então não há por que atualizar a profunidade, pois ele já está em um chão.
 //(Eu achei isso uma furada, se alguém tiver uma ideia melhor de como fazer isso... Agradeço!)
@@ -38,7 +38,7 @@ else {
     //Essa atribuição se faz alterando a posição x ou y do obj_gomez para ficar na profundidade certa do bloco que realmente
     //está abaixo dele, na visão ortogonal.
     if (obj_camera.direcao==180) {
-        for (i=640; i<=0; i-=16) {
+        for (i=640; i>=0; i-=16) {
             id_chao=instance_position(i,obj_gomez.y,obj_block);
             if (id_chao!=noone) {
                 if (id_chao.z>=atual_z) and (id_chao.z<=obj_gomez.z) {

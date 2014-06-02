@@ -77,6 +77,8 @@ direcao=1;
 
 //Assim que o personagem surge na room, deve-se surgir também o objeto responsável por suavizar a câmera do jogo: obj_camera_look.
 instance_create(x,y,obj_camera_look);
+//E também a própria câmera do jogo: obj_camera
+instance_create(x,y,obj_camera);
 
 ///////////////////////////////////////
 //Declaração de variáveis de debugação:

@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -88,6 +88,47 @@ d3d_draw_block(x,y,z+16,x+16,y+16,z,sprite_get_texture(spr_editor_cursor,0),1,1)
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="83">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>arquivo=file_text_open_write(get_save_filename("Fez4ever levels|*.f4e",""));
+with (obj_editor_gomez) {
+    file_text_write_string(other.arquivo,string(x));
+    file_text_writeln(other.arquivo);
+    file_text_write_string(other.arquivo,string(y));
+    file_text_writeln(other.arquivo);
+    file_text_write_string(other.arquivo,string(z));
+    file_text_writeln(other.arquivo);
+}
+file_text_write_string(arquivo,string(instance_number(obj_editor_block)));
+file_text_writeln(arquivo);
+with (obj_editor_block) {
+    file_text_write_string(other.arquivo,string(x));
+    file_text_writeln(other.arquivo);
+    file_text_write_string(other.arquivo,string(y));
+    file_text_writeln(other.arquivo);
+    file_text_write_string(other.arquivo,string(z));
+    file_text_writeln(other.arquivo);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="9" enumb="81">
       <action>
         <libid>1</libid>
@@ -106,6 +147,50 @@ d3d_draw_block(x,y,z+16,x+16,y+16,z,sprite_get_texture(spr_editor_cursor,0),1,1)
           <argument>
             <kind>1</kind>
             <string>z-=16;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="79">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>arquivo=file_text_open_read(get_open_filename("Fez4ever levels|*.f4e",""));
+create_gomez_x=file_text_read_string(arquivo);
+file_text_readln(arquivo);
+create_gomez_y=file_text_read_string(arquivo);
+file_text_readln(arquivo);
+create_gomez_z=file_text_read_string(arquivo);
+file_text_readln(arquivo);
+num_blocks=file_text_read_string(arquivo);
+file_text_readln(arquivo);
+repeat(real(num_blocks)) {
+    create_block_x=file_text_read_string(arquivo);
+    file_text_readln(arquivo);
+    create_block_y=file_text_read_string(arquivo);
+    file_text_readln(arquivo);
+    create_block_z=file_text_read_string(arquivo);
+    file_text_readln(arquivo);
+    create_block=instance_create(real(create_block_x),real(create_block_y),obj_editor_block);
+    create_block.z=real(create_block_z);
+}
+create_gomez=instance_create(real(create_gomez_x),real(create_gomez_y),obj_editor_gomez);
+create_gomez.z=real(create_gomez_z);
+
 </string>
           </argument>
         </arguments>
@@ -280,6 +365,30 @@ if (funcao==0) {
     id_bloco=instance_create(x,y,obj_editor_block);
     id_bloco.z=z;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="13">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>id_bloco=instance_create(x,y,obj_editor_gomez);
+id_bloco.z=z;
 </string>
           </argument>
         </arguments>

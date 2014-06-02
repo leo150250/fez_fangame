@@ -27,8 +27,11 @@
     <object>objects\obj_editor_camera_look</object>
     <object>objects\obj_editor_cursor</object>
     <object>objects\obj_editor_block</object>
+    <object>objects\obj_editor_gomez</object>
+    <object>objects\obj_loader</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\room_teste2</room>
     <room>rooms\room_editor</room>
     <room>rooms\room_teste</room>
   </rooms>

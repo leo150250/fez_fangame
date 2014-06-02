@@ -57,11 +57,8 @@ lado_base=7;
 alarm[0]=1;
 
 //E como esse aqui pertence ao bloco do editor, quando ele é criado, ele faz a computação
-//acontecer também para os blocos que estão do lado dele.
-with (instance_position(x+16,y,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x,y-16,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x-16,y,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x,y+16,obj_editor_block)) { alarm[0]=1; }
+//acontecer também para os blocos que estão do lado dele, após 2 frames. Não me pergunte por quê. Heh!
+alarm[1]=1;
 </string>
           </argument>
         </arguments>
@@ -87,10 +84,72 @@ with (instance_position(x,y+16,obj_editor_block)) { alarm[0]=1; }
             <string>//Códigos para serem executados quando esse objeto for destruído:
 
 //No caso, no editor, se bloco for destruído, ele tem que atualizar seus vizinhos, pra pegarem as texturas atualizadas.
-with (instance_position(x+16,y,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x,y-16,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x-16,y,obj_editor_block)) { alarm[0]=1; }
-with (instance_position(x,y+16,obj_editor_block)) { alarm[0]=1; }
+with (obj_editor_block) {
+    if (self.z==other.z) {
+        if (self.x==other.x+16) and (self.y==other.y) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x) and (self.y==other.y-16) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x-16) and (self.y==other.y) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x) and (self.y==other.y+16) {
+            alarm[0]=1;
+        }
+    }
+    if (self.z==other.z+16) and (self.x==other.x) and (self.y==other.y) {
+        alarm[0]=1;
+    }
+    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
+        alarm[0]=1;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>with (obj_editor_block) {
+    if (self.z==other.z) {
+        if (self.x==other.x+16) and (self.y==other.y) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x) and (self.y==other.y-16) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x-16) and (self.y==other.y) {
+            alarm[0]=1;
+        }
+        if (self.x==other.x) and (self.y==other.y+16) {
+            alarm[0]=1;
+        }
+    }
+    if (self.z==other.z+16) and (self.x==other.x) and (self.y==other.y) {
+        alarm[0]=1;
+    }
+    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
+        alarm[0]=1;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -115,13 +174,39 @@ with (instance_position(x,y+16,obj_editor_block)) { alarm[0]=1; }
             <kind>1</kind>
             <string>//Código a ser executado 1 frame após a criação do bloco
 
-//Esse código tá um pouco diferente do bloco do jogo porque andou dando uns bugs loucos, não sei o que houve. Precisei adaptá-lo para computar TODOS os blocos já construídos.
-//Sei que isso, em fases maiores, vai levar um século pra processar em cada bloco, mas... Fazer o que...
-//Se alguém tiver um código melhor, me avise!
+//YEEEAAAHHH, bugs corrigidos, mas a performance... pff...
 
-//AAARRGH, ESSA COISA TÁ BUGADA. HALP ME PL0X11!1!
+//Inicialmente, pega-se as IDs dos blocos vizinhos.
+bloco_dir=noone;
+bloco_cim=noone;
+bloco_esq=noone;
+bloco_bai=noone;
+bloco_topo=noone;
+bloco_base=noone;
+with (obj_editor_block) {
+    if (self.z==other.z) {
+        if (self.x==other.x+16) and (self.y==other.y) {
+            other.bloco_dir=self.id;
+        }
+        if (self.x==other.x) and (self.y==other.y-16) {
+            other.bloco_cim=self.id;
+        }
+        if (self.x==other.x-16) and (self.y==other.y) {
+            other.bloco_esq=self.id;
+        }
+        if (self.x==other.x) and (self.y==other.y+16) {
+            other.bloco_bai=self.id;
+        }
+    }
+    if (self.z==other.z+16) and (self.x==other.x) and (self.y==other.y) {
+        other.bloco_topo=self.id;
+    }
+    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
+        other.bloco_base=self.id;
+    }
+}
 
-//Inicialmente, define que este bloco ainda não encontrou nenhum bloco vizinho em nenhum lado.
+//Define que, este bloco ainda não encontrou nenhum bloco vizinho em nenhum lado.
 encontrou_dir=0;
 encontrou_cim=0;
 encontrou_esq=0;
@@ -130,34 +215,26 @@ encontrou_bai=0;
 //Então, ele começa a computar os blocos vizinhos.
 //Se a posição Z do bloco vizinho for a mesma do bloco atual, então significa que ele é realmente um vizinho, e seta a variável encontrou_xxx de acordo.
 //Primeiro, o bloco na posição x+16 deste (direita).
-with (obj_editor_block) {
-    if (self.x==other.x+16)
-    and (self.y==other.y)
-    and (self.z==other.z) {
+with (bloco_dir) {
+    if (self.z==other.z) {
         other.encontrou_dir=1;
     }
 }
 //Depois, o bloco na posição y-16 deste (acima).
-with (obj_editor_block) {
-    if (self.x==other.x)
-    and (self.y==other.y-16)
-    and (self.z==other.z) {
+with (bloco_cim) {
+    if (self.z==other.z) {
         other.encontrou_cim=1;
     }
 }
 //Depois, o bloco na posição x-16 deste (esquerda).
-with (obj_editor_block) {
-    if (self.x==other.x-16)
-    and (self.y==other.y)
-    and (self.z==other.z) {
+with (bloco_esq) {
+    if (self.z==other.z) {
         other.encontrou_esq=1;
     }
 }
 //Depois, o bloco na posição y+16 deste (abaixo).
-with (obj_editor_block) {
-    if (self.x==other.x)
-    and (self.y==other.y+16)
-    and (self.z==other.z) {
+with (bloco_bai) {
+    if (self.z==other.z) {
         other.encontrou_bai=1;
     }
 }
@@ -392,6 +469,36 @@ and (encontrou_bai==1) {
     lado_cim=-1;
     lado_esq=-1;
     lado_bai=-1;
+}
+//Agora, aqui calcula se há ou não blocos vizinhos nas verticais (topo e base),
+//e faz a mudança das texturas laterais de acordo.
+if (bloco_topo==noone) and (bloco_base==noone) {
+    lado_topo=28;
+    lado_base=28;
+}
+if (bloco_topo==noone) and (bloco_base!=noone) {
+    lado_dir+=7;
+    lado_cim+=7;
+    lado_esq+=7;
+    lado_bai+=7;
+    lado_topo=28;
+    lado_base=-1;
+}
+if (bloco_topo!=noone) and (bloco_base==noone) {
+    lado_dir+=14;
+    lado_cim+=14;
+    lado_esq+=14;
+    lado_bai+=14;
+    lado_topo=-1;
+    lado_base=28;
+}
+if (bloco_topo!=noone) and (bloco_base!=noone) {
+    lado_dir+=21;
+    lado_cim+=21;
+    lado_esq+=21;
+    lado_bai+=21;
+    lado_topo=-1;
+    lado_base=-1;
 }
 </string>
           </argument>

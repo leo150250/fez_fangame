@@ -3,7 +3,7 @@
   <spriteName>spr_block</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -39,15 +39,19 @@ Imagens 3, 4, 5 e 6: lateral do bloco, sem terminações. Qualquer uma pode ser 
 Imagem 7: topo e base do bloco. Pretendo fazer uma 8ª pra fazer a base...
 VALE LEMBRAR QUE, pra corrigir o bug de texture clamping, as sprites no arquivo devem ser espelhadas (terminação na direta sendo na esquerda, por exemplo).*/
 
-//No caso das laterais, podem ser escolhidas as imagens 3, 4, 5 e 6 aleatoriamente.
+//No caso das laterais, podem ser escolhidas as imagens 3, 4, 5 e 6 aleatoriamente, de acordo com o nível correto.
+//0 a 6 = Nível sem blocos verticais vizinhos
+//7 a 13 = Nível com bloco vertical vizinho abaixo
+//14 a 20 = Nível com bloco vertical vizinho acima
+//21 a 27 = Nível com blocos verticais vizinhos
 lado_dir=choose(3,4,5,6);
 lado_cim=choose(3,4,5,6);
 lado_esq=choose(3,4,5,6);
 lado_bai=choose(3,4,5,6);
 
-//No topo e na base, seta a imagem 7.
-lado_topo=7;
-lado_base=7;
+//No topo e na base, seta a imagem 28.
+lado_topo=28;
+lado_base=28;
 
 //O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
 //retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
@@ -80,10 +84,34 @@ alarm[0]=1;
             <string>//Código a ser executado 1 frame após a criação do bloco
 
 //Inicialmente, pega-se as IDs dos blocos vizinhos.
-bloco_dir=instance_position(x+16,y,obj_block);
-bloco_cim=instance_position(x,y-16,obj_block);
-bloco_esq=instance_position(x-16,y,obj_block);
-bloco_bai=instance_position(x,y+16,obj_block);
+bloco_dir=noone;
+bloco_cim=noone;
+bloco_esq=noone;
+bloco_bai=noone;
+bloco_topo=noone;
+bloco_base=noone;
+with (obj_block) {
+    if (self.z==other.z) {
+        if (self.x==other.x+16) and (self.y==other.y) {
+            other.bloco_dir=self.id;
+        }
+        if (self.x==other.x) and (self.y==other.y-16) {
+            other.bloco_cim=self.id;
+        }
+        if (self.x==other.x-16) and (self.y==other.y) {
+            other.bloco_esq=self.id;
+        }
+        if (self.x==other.x) and (self.y==other.y+16) {
+            other.bloco_bai=self.id;
+        }
+    }
+    if (self.z==other.z+16) and (self.x==other.x) and (self.y==other.y) {
+        other.bloco_topo=self.id;
+    }
+    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
+        other.bloco_base=self.id;
+    }
+}
 
 //Define que, este bloco ainda não encontrou nenhum bloco vizinho em nenhum lado.
 encontrou_dir=0;
@@ -348,6 +376,36 @@ and (encontrou_bai==1) {
     lado_cim=-1;
     lado_esq=-1;
     lado_bai=-1;
+}
+//Agora, aqui calcula se há ou não blocos vizinhos nas verticais (topo e base),
+//e faz a mudança das texturas laterais de acordo.
+if (bloco_topo==noone) and (bloco_base==noone) {
+    lado_topo=28;
+    lado_base=28;
+}
+if (bloco_topo==noone) and (bloco_base!=noone) {
+    lado_dir+=7;
+    lado_cim+=7;
+    lado_esq+=7;
+    lado_bai+=7;
+    lado_topo=28;
+    lado_base=-1;
+}
+if (bloco_topo!=noone) and (bloco_base==noone) {
+    lado_dir+=14;
+    lado_cim+=14;
+    lado_esq+=14;
+    lado_bai+=14;
+    lado_topo=-1;
+    lado_base=28;
+}
+if (bloco_topo!=noone) and (bloco_base!=noone) {
+    lado_dir+=21;
+    lado_cim+=21;
+    lado_esq+=21;
+    lado_bai+=21;
+    lado_topo=-1;
+    lado_base=-1;
 }
 </string>
           </argument>

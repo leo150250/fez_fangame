@@ -5,8 +5,8 @@
 //Apesar desse primeiro não ser utilizado, é bom deixar aqui... Vai que... né...?
 id_chao=instance_position(x,y,obj_block);
 //Esses dois aqui são a área de abrangência do obj_gomez.
-id_chao1=instance_position(x-6,y-6,obj_block);
-id_chao2=instance_position(x+6,y+6,obj_block);
+id_chao1=instance_position(x-4,y-4,obj_block);
+id_chao2=instance_position(x+4,y+4,obj_block);
 
 //DE CARA, se não pegar nenhuma ID, então significa que o personagem está em queda livre.
 //Seta a variável zspeed para -0.2 relativos, e negativeia o pulo dele, pra ele não pular no ar.
@@ -27,13 +27,13 @@ if (id_chao1==noone) and (id_chao2==noone) {
 //Chão. Chão chão, chão. Chão chão chão chão VAI! VAI! VAI! VAI! TCHANANAAA NANANAAAAAAAAAAAAA
 else {
     if (id_chao1!=noone) {
-        if ((z>id_chao1.z+8) and (z<id_chao1.z+16) and (zspeed<0)) {
+        if ((z>=id_chao1.z+(15+zspeed)) and (z<id_chao1.z+16) and (zspeed<0)) {
             zspeed=0;
             z=id_chao1.z+16;
             pular=2;
         } else {
             if (id_chao2!=noone) {
-                if ((z>id_chao2.z+8) and (z<id_chao2.z+16) and (zspeed<0)) {
+                if ((z>=id_chao2.z+(15+zspeed)) and (z<id_chao2.z+16) and (zspeed<0)) {
                     zspeed=0;
                     z=id_chao2.z+16;
                     pular=2;
@@ -50,7 +50,7 @@ else {
         }
     } else {
         if (id_chao2!=noone) {
-            if ((z>id_chao2.z+8) and (z<id_chao2.z+16) and (zspeed<0)) {
+            if ((z>=id_chao2.z+(15+zspeed)) and (z<id_chao2.z+16) and (zspeed<0)) {
                 zspeed=0;
                 z=id_chao2.z+16;
                 pular=2;
