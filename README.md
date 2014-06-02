@@ -13,6 +13,23 @@ Lista de afazeres:
 
 Diário de Bordo
 ===============
+
+1 de Junho de 2014:
+-------------------
+Enquanto estava no carro aguardando minha esposa terminar o concurso, resolvi trabalhar mais um pouco no projeto. Não mexi ontem porque não tive tempo.
+
+De início, começou-se com aquela incerteza de “como vou fazer isso?”, mas logo em seguida as respostas começaram a vir. Arrumei primeiramente um bug que havia na detecção da superfície do chão onde, dependendo da velocidade e da altura do personagem, o código anterior fazia com que ele passasse reto pelo chão, o que foi controlado com a ajuda de um código mais limpo, que leva em consideração a velocidade da queda do personagem para verificar se haverá ou não uma colisão com a superfície do bloco.
+
+Arrumei também outro bug que estava fazendo um caos no jogo: Inverti um operador no scr_updatez() dentro de um for, que fazia com que nenhuma profundidade fosse computada na câmera da esquerda (180). Corrigido!
+
+Fiz uma mudança nas texturas também, deixando-as prontas para captar dados também do bloco que está acima e do bloco que está abaixo. Além disso, fiz uma correção no detector dos blocos, e agora ele está funcionando lindamente! Fiz até uma nova fase de testes pra testar isso tudo! E, essa nova fase com feita com o auxílio do editor, ou seja, ele já está salvando arquivos e carregando arquivos tranquilamente!
+
+Porém, essa nova fase me revelou alguns bugs: Quando o personagem está em uma área que tem mais de um bloco no mesmo lugar, mas em alturas diferentes, o atualizador da posição z ignora alguns desses blocos. Não é um efeito intermitente, o que é bom, mas é chato pois não permite que o personagem possa andar tranquilamente em uma ponte normal, sem ser com vários blocos em profundidades diferentes.
+
+Além do mais, a atualização da posição z do personagem ocorre também mesmo quando, ortogonalmente, a plataforma não é vista. Se houver uma plataforma, mas ela está atrás de um muro, ocorre a atualização da posição z, e o personagem vai parar atrás do muro, em cima da plataforma... Isso não é legal, mas acredito que uma breve checagem de "rota de colisão" possa resolver essa pendenga.
+
+Hoje provavelmente lanço um executável pra Windows. 
+
 30 de Maio de 2014:
 -------------------
  
