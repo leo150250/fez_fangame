@@ -94,6 +94,37 @@ if ((direcao-15)-direcao_view&lt;0.1) and (direcao_view-(direcao-15)&lt;0.1) {
         </arguments>
       </action>
     </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_color(c_black);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_text(0,0,"Aperte ESPAÇO para inserir/excluir um bloco
+Aperte ENTER para inserir o local de início
+Aperte S para salvar em arquivo
+Aperte O para carregar um arquivo
+");
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -178,6 +209,32 @@ d3d_draw_floor(0,0,560,640,480,560,sprite_get_texture(spr_editor_grid,0),40,30);
           <argument>
             <kind>1</kind>
             <string>direcao-=90;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Código para o evento de apertar a tecla ESC
+
+//Faz algo muito importante para os jogos atuais: Sai do jogo.
+game_end();
 </string>
           </argument>
         </arguments>

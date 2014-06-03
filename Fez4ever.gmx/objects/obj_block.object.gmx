@@ -51,7 +51,7 @@ lado_bai=choose(3,4,5,6);
 
 //No topo e na base, seta a imagem 28.
 lado_topo=28;
-lado_base=28;
+lado_base=29;
 
 //O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
 //retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
@@ -381,7 +381,7 @@ and (encontrou_bai==1) {
 //e faz a mudança das texturas laterais de acordo.
 if (bloco_topo==noone) and (bloco_base==noone) {
     lado_topo=28;
-    lado_base=28;
+    lado_base=29;
 }
 if (bloco_topo==noone) and (bloco_base!=noone) {
     if (lado_dir!=-1) { lado_dir+=7; }
@@ -397,7 +397,7 @@ if (bloco_topo!=noone) and (bloco_base==noone) {
     if (lado_esq!=-1) { lado_esq+=14; }
     if (lado_bai!=-1) { lado_bai+=14; }
     lado_topo=-1;
-    lado_base=28;
+    lado_base=29;
 }
 if (bloco_topo!=noone) and (bloco_base!=noone) {
     if (lado_dir!=-1) { lado_dir+=21; }
@@ -407,34 +407,6 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
     lado_topo=-1;
     lado_base=-1;
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (z==obj_gomez.posicao_zblock-24) {
-    mask_index=mask_block;
-} else {
-    mask_index=mask_none;
-}
-
 </string>
           </argument>
         </arguments>
@@ -467,31 +439,31 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
 //Cima:
 draw_set_color(c_white);
 if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_view&lt;180)) {
-    d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(spr_block,lado_cim),1,1);
+    d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(sprite_index,lado_cim),1,1);
 }
 
 //Topo:
-if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(spr_block,lado_topo),1,1); }
+if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(sprite_index,lado_topo),1,1); }
 
 //Direita:
 draw_set_color(c_ltgray);
 if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direcao_view&lt;90)) or ((obj_camera.direcao_view&gt;270) and (obj_camera.direcao_view&lt;450))) {
-    d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_block,lado_dir),1,1);
+    d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(sprite_index,lado_dir),1,1);
 }
 
 //Baixo:
 draw_set_color(c_gray);
 if (lado_bai&gt;-1) and (((obj_camera.direcao_view&gt;180) and (obj_camera.direcao_view&lt;360)) or ((obj_camera.direcao_view&gt;-180) and (obj_camera.direcao_view&lt;0))) {
-    d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(spr_block,lado_bai),1,1);
+    d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(sprite_index,lado_bai),1,1);
 }
 
 //Base:
-if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(spr_block,lado_base),1,1); }
+if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(sprite_index,lado_base),1,1); }
 
 //Esquerda:
 draw_set_color(c_ltgray);
 if (lado_esq&gt;-1) and ((obj_camera.direcao_view&gt;90) and (obj_camera.direcao_view&lt;270)) {
-    d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(spr_block,lado_esq),1,1);
+    d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(sprite_index,lado_esq),1,1);
 }
 </string>
           </argument>

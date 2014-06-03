@@ -129,6 +129,32 @@ with (obj_editor_block) {
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="82">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Código para o pressionamento da tecla R
+
+//Como ainda não implementei o que acontece caso o personagem caia do mapa, basta apertar R que o jogo reinicia. :)
+game_restart();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="9" enumb="81">
       <action>
         <libid>1</libid>

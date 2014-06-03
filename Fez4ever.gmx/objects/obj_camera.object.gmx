@@ -194,10 +194,14 @@ distorcao=-32;
 //Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
 //Tenho que tirar isso mais tarde.
 //DEBUG!
-draw_text(0,0,"obj_camera.direcao: "+string(direcao));
-draw_text(0,32,"obj_camera.direcao_view: "+string(direcao_view));
-draw_text(0,64,"obj_gomez.atual_z: "+string(obj_gomez.atual_z));
-draw_text(0,96,"obj_gomez.bloqueio: "+string(obj_gomez.bloqueio));
+draw_set_color(c_black);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_text(0,0,"obj_camera.direcao: "+string(direcao)+"
+obj_camera.direcao_view: "+string(direcao_view)+"
+obj_gomez.atual_z: "+string(obj_gomez.atual_z)+"
+obj_gomez.bloqueio: "+string(obj_gomez.bloqueio)
+);
 </string>
           </argument>
         </arguments>

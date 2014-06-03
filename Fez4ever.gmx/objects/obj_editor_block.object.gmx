@@ -532,25 +532,25 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
 
 //Cima:
 draw_set_color(c_white);
-if (lado_cim&gt;-1) { d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(spr_block,lado_cim),1,1); }
+if (lado_cim&gt;-1) { d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(sprite_index,lado_cim),1,1); }
 
 //Topo:
-if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(spr_block,lado_topo),1,1); }
+if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(sprite_index,lado_topo),1,1); }
 
 //Direita:
 draw_set_color(c_ltgray);
-if (lado_dir&gt;-1) { d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_block,lado_dir),1,1); }
+if (lado_dir&gt;-1) { d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(sprite_index,lado_dir),1,1); }
 
 //Baixo:
 draw_set_color(c_gray);
-if (lado_bai&gt;-1) { d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(spr_block,lado_bai),1,1); }
+if (lado_bai&gt;-1) { d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(sprite_index,lado_bai),1,1); }
 
 //Base:
-if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(spr_block,lado_base),1,1); }
+if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(sprite_index,lado_base),1,1); }
 
 //Esquerda:
 draw_set_color(c_ltgray);
-if (lado_esq&gt;-1) { d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(spr_block,lado_esq),1,1); }
+if (lado_esq&gt;-1) { d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(sprite_index,lado_esq),1,1); }
 </string>
           </argument>
         </arguments>
