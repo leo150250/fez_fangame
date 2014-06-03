@@ -9,13 +9,25 @@ Todas as sprites foram ripadas do jogo original, mas só utilizei o Google pra i
 
 Lista de afazeres:
 * Precisamos de todas as sprites do Gomez e dos blocos do jogo original!
-* O jogo não possui som nenhum ainda. PRECISAMOS DE SOM!
+* O jogo não possui som nenhum ainda. PRECISAMOS DE SOM! (Tá, tem umzinho, mas nem é do jogo original. :( )
 
 Diário de Bordo
 ===============
 
+2 de Junho de 2014
+------------------
+
+Comecei hoje tentando melhorar a questão do som do jogo, mas logo percebi que, se eu fizer isso, vou acabar perdendo muito tempo procurando sons então, #partiu #programação. Em um breve gameplay do Fez original, pude observar que a profundidade Z é atualizada após a troca de câmera e o personagem começar a se mover. Isso foi implementado, mas para que haja total eficácia, agora o tempo está “parando” durante a rotação, assim como no Fez original.
+
+Agora, uma curiosidade: Percebi que o personagem estava respeitando tranquilamente a questão das paredes... MAS SEM FUNÇÃO NENHUMA! Não me lembro de ter feito nada relacionado à “colisão de paredes” ou algo do tipo, e mesmo assim o personagem está respeitando as paredes... Em termos... Quando se tem outro bloco para trás, ele atualizava a profundidade e o personagem acabava indo lá pra trás... “acabava”, pois melhorei o código, e coloquei a detecção de paredes agora. Está funcionando lindamente mas... O desempenho foi pro beleléu com o código que escrevi...
+
+Enfim, boa parte dos bugs foram corrigidos e o jogo está ficando tão polido quanto o original, apesar de ainda haver alguns poucos bugs conhecidos. Está tão polido que, é hora de um executável: https://github.com/leo150250/fez_fangame/blob/master/.EXE-builds/Fez4ever-Default-0.0.0.1.exe?raw=true
+
+P.S.: Preciso de spriters que tenham habilidade com PixelArt. :/
+
 1 de Junho de 2014:
 -------------------
+
 Enquanto estava no carro aguardando minha esposa terminar o concurso, resolvi trabalhar mais um pouco no projeto. Não mexi ontem porque não tive tempo.
 
 De início, começou-se com aquela incerteza de “como vou fazer isso?”, mas logo em seguida as respostas começaram a vir. Arrumei primeiramente um bug que havia na detecção da superfície do chão onde, dependendo da velocidade e da altura do personagem, o código anterior fazia com que ele passasse reto pelo chão, o que foi controlado com a ajuda de um código mais limpo, que leva em consideração a velocidade da queda do personagem para verificar se haverá ou não uma colisão com a superfície do bloco.
