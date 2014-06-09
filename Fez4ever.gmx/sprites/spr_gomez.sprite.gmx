@@ -27,5 +27,9 @@
     <frame index="4">images\spr_gomez_4.png</frame>
     <frame index="5">images\spr_gomez_5.png</frame>
     <frame index="6">images\spr_gomez_6.png</frame>
+    <frame index="7">images\spr_gomez_7.png</frame>
+    <frame index="8">images\spr_gomez_8.png</frame>
+    <frame index="9">images\spr_gomez_9.png</frame>
+    <frame index="10">images\spr_gomez_10.png</frame>
   </frames>
 </sprite>

@@ -223,6 +223,17 @@ y=round(y);
 if (armazena_view!=0) {
     obj_camera.direcao_view+=30;
 }
+if (pular&lt;=0) {
+    if (round(zspeed)&gt;0) {
+        image_single=7;
+    }
+    if (round(zspeed)==0) {
+        image_single=8;
+    }
+    if (round(zspeed)&lt;0) {
+        image_single=9;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -263,7 +274,9 @@ if (pause==false) {
     if (andar&gt;5) {
         andar=0;
     }
-    image_single=1+round(andar);
+    if (pular&gt;0) {
+        image_single=1+round(andar);
+    }
 }
 </string>
           </argument>
@@ -326,7 +339,9 @@ if (pause==false) {
         andar=0;
     }
     //E, pra atualizar mesmo os frames, pula-se o primeiro, e pega o valor ARREDONDADO de "andar":
-    image_single=1+round(andar);
+    if (pular&gt;0) {
+        image_single=1+round(andar);
+    }
 }
 </string>
           </argument>

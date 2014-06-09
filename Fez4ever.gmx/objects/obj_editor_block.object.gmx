@@ -106,6 +106,9 @@ with (obj_editor_block) {
         alarm[0]=1;
     }
 }
+obj_editor_cursor.matriz_desenho_0[y/16,z/16]=-1;
+obj_editor_cursor.matriz_textura_0[y/16,z/16]=-1;
+obj_editor_cursor.matriz_profundidade_0[y/16,z/16]=-1;
 </string>
           </argument>
         </arguments>
@@ -499,6 +502,11 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
     lado_bai+=21;
     lado_topo=-1;
     lado_base=-1;
+}
+if (obj_editor_cursor.matriz_profundidade_0[y/16,z/16]&lt;=x) {
+    obj_editor_cursor.matriz_desenho_0[y/16,z/16]=sprite_index;
+    obj_editor_cursor.matriz_textura_0[y/16,z/16]=lado_dir;
+    obj_editor_cursor.matriz_profundidade_0[y/16,z/16]=x;
 }
 </string>
           </argument>

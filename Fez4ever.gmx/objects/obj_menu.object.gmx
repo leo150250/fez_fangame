@@ -25,7 +25,17 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>d3d_end();
+            <string>window_set_fullscreen(true);
+view_xview[0]=0;
+view_yview[0]=0;
+view_wview[0]=640;
+view_hview[0]=320;
+view_xport[0]=0;
+view_yport[0]=0;
+view_wport[0]=display_get_width();
+view_hport[0]=display_get_height();
+display_set_gui_size(view_wport[0],view_hport[0]);
+d3d_end();
 </string>
           </argument>
         </arguments>

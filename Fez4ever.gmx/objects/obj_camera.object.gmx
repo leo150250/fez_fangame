@@ -49,16 +49,49 @@ visao=0.001;
 //Jogos TPS (Third-person Shooter) costumam ter esse valor entre 96 e 256.
 distancia=10000000;
 
+agua=0;
+alarm[0]=30;
+
 //Funções para definir o jogo em tela-cheia.
 //Descomente-as somente SE QUISER DEIXAR O JOGO EM TELA-CHEIA. Durante o desenvolvimento, prefiro ele em janela mesmo.
-/*
-window_set_fullscreen(true);
-view_wview[0]=display_get_width();
-view_hview[0]=display_get_height();
+
+view_xview[0]=0;
+view_yview[0]=0;
+view_wview[0]=640;
+view_hview[0]=320;
+view_xport[0]=0;
+view_yport[0]=0;
 view_wport[0]=display_get_width();
 view_hport[0]=display_get_height();
 display_set_gui_size(view_wport[0],view_hport[0]);
-*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (agua==0) {
+    agua=1;
+} else {
+    agua=0;
+}
+alarm[0]=30;
 </string>
           </argument>
         </arguments>
@@ -197,10 +230,13 @@ distorcao=-32;
 draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_text(0,0,"obj_camera.direcao: "+string(direcao)+"
+draw_text(0,0,"fps: "+string(fps)+"
+fps_real: "+string(fps_real)+"
+obj_camera.direcao: "+string(direcao)+"
 obj_camera.direcao_view: "+string(direcao_view)+"
 obj_gomez.atual_z: "+string(obj_gomez.atual_z)+"
-obj_gomez.bloqueio: "+string(obj_gomez.bloqueio)
+obj_gomez.bloqueio: "+string(obj_gomez.bloqueio)+"
+instance_number(obj_block): "+string(instance_number(obj_block))
 );
 </string>
           </argument>
@@ -239,12 +275,18 @@ draw_rectangle_color(0,-(obj_camera_look.z/5),view_wview[0],-(obj_camera_look.z/
 //Céu de baixo
 draw_rectangle_color(0,0,view_wview[0],-(obj_camera_look.z/5),c_white,c_white,c_white,c_white,false);
 //Depois, fazemos uma tentativa fracassada de criar um negócio de água:
-draw_rectangle_color(0,0,view_wview[0],(view_hview[0]/2)-(obj_camera_look.z*2),c_blue,c_blue,c_blue,c_blue,false);
+//draw_rectangle_color(0,0,view_wview[0],(view_hview[0]/2)-(obj_camera_look.z*2),c_blue,c_blue,c_blue,c_blue,false);
 //E depois, fazemos a projeção do mundo 3D.
 //Essa projeção que é o truque. O lengthdir_x/y faz um cálculo para que a câmera esteja sempre em um círculo em volta do personagem,
 //de raio de acordo com a variável distancia, na posição do direcao_view.
 //Ainda preciso corrigir a taxa de aspecto do 3D (aquele 640/480 lá no final).
-d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj_camera_look.y+lengthdir_y(distancia,direcao_view),obj_camera_look.z+distorcao,obj_camera_look.x,obj_camera_look.y,obj_camera_look.z,0,0,1,visao,640/480,(distancia/2),(distancia*2));
+d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj_camera_look.y+lengthdir_y(distancia,direcao_view),obj_camera_look.z+distorcao,obj_camera_look.x,obj_camera_look.y,obj_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/2),(distancia*2));
+//E depois, uma tentativa bem-sucedida de fazer o "negócio" de água, que nada mais é do que a água, propriamente dita:
+d3d_draw_wall(1280,-512,4,1280,1024,-252,sprite_get_texture(spr_agua,agua),6,1);
+d3d_draw_wall(-512,-512,4,1280,-512,-252,sprite_get_texture(spr_agua,agua),7,1);
+d3d_draw_wall(-512,-512,4,-512,1024,-252,sprite_get_texture(spr_agua,agua),6,1);
+d3d_draw_wall(-512,1024,4,1280,1024,-252,sprite_get_texture(spr_agua,agua),7,1);
+d3d_draw_floor(-512,-512,4,1280,1024,4,sprite_get_texture(spr_agua,2),7,6);
 </string>
           </argument>
         </arguments>

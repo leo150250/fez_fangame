@@ -46,7 +46,7 @@ repeat(real(num_blocks)) {
 }
 create_gomez=instance_create(real(create_gomez_x)+8,real(create_gomez_y)+8,obj_gomez);
 create_gomez.z=real(create_gomez_z);
-
+file_text_close(arquivo);
 </string>
           </argument>
         </arguments>

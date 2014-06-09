@@ -16,6 +16,7 @@
     <sprite>sprites\mask_block</sprite>
     <sprite>sprites\mask_none</sprite>
     <sprite>sprites\spr_block_test</sprite>
+    <sprite>sprites\spr_agua</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
