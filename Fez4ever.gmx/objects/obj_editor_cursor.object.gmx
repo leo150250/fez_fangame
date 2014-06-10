@@ -37,7 +37,7 @@ for (i=0; i&lt;=30; i++) {
         matriz_textura_0[i,j]=-1;
         matriz_textura_180[i,j]=-1;
         matriz_profundidade_0[i,j]=-1;
-        matriz_profundidade_180[i,j]=-1;
+        matriz_profundidade_180[i,j]=641;
     }
 }
 for (i=0; i&lt;=40; i++) {
@@ -46,7 +46,7 @@ for (i=0; i&lt;=40; i++) {
         matriz_desenho_270[i,j]=-1;
         matriz_textura_90[i,j]=-1;
         matriz_textura_270[i,j]=-1;
-        matriz_profundidade_90[i,j]=-1;
+        matriz_profundidade_90[i,j]=481;
         matriz_profundidade_270[i,j]=-1;
     }
 }
@@ -126,24 +126,7 @@ d3d_draw_block(x,y,z+16,x+16,y+16,z,sprite_get_texture(spr_editor_cursor,0),1,1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>arquivo=file_text_open_write(get_save_filename("Fez4ever levels|*.f4e",""));
-file_text_write_string(arquivo,string(obj_editor_gomez.x));
-file_text_writeln(arquivo);
-file_text_write_string(arquivo,string(obj_editor_gomez.y));
-file_text_writeln(arquivo);
-file_text_write_string(arquivo,string(obj_editor_gomez.z));
-file_text_writeln(arquivo);
-file_text_write_string(arquivo,string(instance_number(obj_editor_block)));
-file_text_writeln(arquivo);
-with (obj_editor_block) {
-    file_text_write_string(other.arquivo,string(x));
-    file_text_writeln(other.arquivo);
-    file_text_write_string(other.arquivo,string(y));
-    file_text_writeln(other.arquivo);
-    file_text_write_string(other.arquivo,string(z));
-    file_text_writeln(other.arquivo);
-}
-file_text_close(arquivo);
+            <string>scr_save_level();
 </string>
           </argument>
         </arguments>
@@ -215,28 +198,7 @@ game_restart();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>arquivo=file_text_open_read(get_open_filename("Fez4ever levels|*.f4e",""));
-create_gomez_x=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-create_gomez_y=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-create_gomez_z=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-num_blocks=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-repeat(real(num_blocks)) {
-    create_block_x=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block_y=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block_z=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block=instance_create(real(create_block_x),real(create_block_y),obj_editor_block);
-    create_block.z=real(create_block_z);
-}
-create_gomez=instance_create(real(create_gomez_x),real(create_gomez_y),obj_editor_gomez);
-create_gomez.z=real(create_gomez_z);
-file_text_close(arquivo);
+            <string>scr_open_level(false);
 </string>
           </argument>
         </arguments>

@@ -84,18 +84,36 @@ alarm[1]=1;
             <string>//Códigos para serem executados quando esse objeto for destruído:
 
 //No caso, no editor, se bloco for destruído, ele tem que atualizar seus vizinhos, pra pegarem as texturas atualizadas.
+obj_editor_cursor.matriz_desenho_0[y/16,z/16]=-1;
+obj_editor_cursor.matriz_desenho_90[x/16,z/16]=-1;
+obj_editor_cursor.matriz_desenho_180[y/16,z/16]=-1;
+obj_editor_cursor.matriz_desenho_270[x/16,z/16]=-1;
+obj_editor_cursor.matriz_textura_0[y/16,z/16]=-1;
+obj_editor_cursor.matriz_textura_90[x/16,z/16]=-1;
+obj_editor_cursor.matriz_textura_180[y/16,z/16]=-1;
+obj_editor_cursor.matriz_textura_270[x/16,z/16]=-1;
+obj_editor_cursor.matriz_profundidade_0[y/16,z/16]=-1;
+obj_editor_cursor.matriz_profundidade_90[x/16,z/16]=481;
+obj_editor_cursor.matriz_profundidade_180[y/16,z/16]=641;
+obj_editor_cursor.matriz_profundidade_270[x/16,z/16]=-1;
 with (obj_editor_block) {
     if (self.z==other.z) {
         if (self.x==other.x+16) and (self.y==other.y) {
             alarm[0]=1;
-        }
+        } else
         if (self.x==other.x) and (self.y==other.y-16) {
             alarm[0]=1;
-        }
+        } else
         if (self.x==other.x-16) and (self.y==other.y) {
             alarm[0]=1;
-        }
+        } else
         if (self.x==other.x) and (self.y==other.y+16) {
+            alarm[0]=1;
+        } else
+        if (self.y==other.y) {
+            alarm[0]=1;
+        } else
+        if (self.x==other.x) {
             alarm[0]=1;
         }
     }
@@ -106,9 +124,6 @@ with (obj_editor_block) {
         alarm[0]=1;
     }
 }
-obj_editor_cursor.matriz_desenho_0[y/16,z/16]=-1;
-obj_editor_cursor.matriz_textura_0[y/16,z/16]=-1;
-obj_editor_cursor.matriz_profundidade_0[y/16,z/16]=-1;
 </string>
           </argument>
         </arguments>
@@ -507,6 +522,21 @@ if (obj_editor_cursor.matriz_profundidade_0[y/16,z/16]&lt;=x) {
     obj_editor_cursor.matriz_desenho_0[y/16,z/16]=sprite_index;
     obj_editor_cursor.matriz_textura_0[y/16,z/16]=lado_dir;
     obj_editor_cursor.matriz_profundidade_0[y/16,z/16]=x;
+}
+if (obj_editor_cursor.matriz_profundidade_90[x/16,z/16]&gt;=y) {
+    obj_editor_cursor.matriz_desenho_90[x/16,z/16]=sprite_index;
+    obj_editor_cursor.matriz_textura_90[x/16,z/16]=lado_cim;
+    obj_editor_cursor.matriz_profundidade_90[x/16,z/16]=y;
+}
+if (obj_editor_cursor.matriz_profundidade_180[y/16,z/16]&gt;=x) {
+    obj_editor_cursor.matriz_desenho_180[y/16,z/16]=sprite_index;
+    obj_editor_cursor.matriz_textura_180[y/16,z/16]=lado_esq;
+    obj_editor_cursor.matriz_profundidade_180[y/16,z/16]=x;
+}
+if (obj_editor_cursor.matriz_profundidade_270[x/16,z/16]&lt;=y) {
+    obj_editor_cursor.matriz_desenho_270[x/16,z/16]=sprite_index;
+    obj_editor_cursor.matriz_textura_270[x/16,z/16]=lado_bai;
+    obj_editor_cursor.matriz_profundidade_270[x/16,z/16]=y;
 }
 </string>
           </argument>

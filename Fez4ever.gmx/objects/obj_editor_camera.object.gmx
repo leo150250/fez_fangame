@@ -122,6 +122,8 @@ if ((direcao-15)-direcao_view&lt;0.1) and (direcao_view-(direcao-15)&lt;0.1) {
             <kind>1</kind>
             <string>draw_set_color(c_black);
 draw_rectangle(view_wport[0]-192,0,view_wport[0],view_hport[0],false);
+draw_set_color(c_gray);
+draw_rectangle(view_wport[0]-192+8,8,view_wport[0]-8,184,true);
 if (direcao==0) {
     draw_set_color(c_ltgray);
     preview_x1=clamp((obj_editor_cursor.y-80)/16,0,30);
@@ -131,18 +133,73 @@ if (direcao==0) {
     for (i=preview_x1; i&lt;=preview_x2; i++) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_0[i,j]!=-1) {
-                draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],8+480-(i*16),8+480-(j*16));
+                //draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],8+480-(i*16),8+480-(j*16));
                 draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],view_wport-104-(i*16)+(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
+    /* DEBUG já comentado! :)
     draw_set_color(c_red);
     draw_rectangle(8+480-(obj_editor_cursor.y),8+480-(obj_editor_cursor.z),8+480-(obj_editor_cursor.y-16),8+480-(obj_editor_cursor.z-16),true);
-    draw_rectangle(8+480-(obj_editor_cursor.y)-80,8+480-(obj_editor_cursor.z)-80,8+480-(obj_editor_cursor.y-16)+80,8+480-(obj_editor_cursor.z-16)+80,true);
+    draw_rectangle(8+480-(obj_editor_cursor.y)-80,8+480-(obj_editor_cursor.z)-80,8+480-(obj_editor_cursor.y-16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
 }
-
-
-
+if (direcao==90) {
+    draw_set_color(c_white);
+    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,40);
+    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,40);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    for (i=preview_x1; i&lt;=preview_x2; i++) {
+        for (j=preview_y1; j&lt;=preview_y2; j++) {
+            if (obj_editor_cursor.matriz_desenho_90[i,j]!=-1) {
+                //draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],8+480-(i*16),8+480-(j*16));
+                draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],view_wport-104-(i*16)+(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+            }
+        }
+    }
+    /* DEBUG já comentado! :)
+    draw_set_color(c_red);
+    draw_rectangle(8+480-(obj_editor_cursor.x),8+480-(obj_editor_cursor.z),8+480-(obj_editor_cursor.x-16),8+480-(obj_editor_cursor.z-16),true);
+    draw_rectangle(8+480-(obj_editor_cursor.x)-80,8+480-(obj_editor_cursor.z)-80,8+480-(obj_editor_cursor.x-16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
+}
+if (direcao==180) {
+    draw_set_color(c_ltgray);
+    preview_x1=clamp((obj_editor_cursor.y-80)/16,0,30);
+    preview_x2=clamp((obj_editor_cursor.y+80)/16,0,30);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    for (i=preview_x1; i&lt;=preview_x2; i++) {
+        for (j=preview_y1; j&lt;=preview_y2; j++) {
+            if (obj_editor_cursor.matriz_desenho_180[i,j]!=-1) {
+                //draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],8+(i*16),8+480-(j*16));
+                draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],view_wport-104+(i*16)-(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
+            }
+        }
+    }
+    /* DEBUG já comentado! :)
+    draw_set_color(c_red);
+    draw_rectangle(8+(obj_editor_cursor.y),8+480-(obj_editor_cursor.z),8+(obj_editor_cursor.y+16),8+480-(obj_editor_cursor.z-16),true);
+    draw_rectangle(8+(obj_editor_cursor.y)-80,8+480-(obj_editor_cursor.z)-80,8+(obj_editor_cursor.y+16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
+}
+if (direcao==270) {
+    draw_set_color(c_gray);
+    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,40);
+    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,40);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    for (i=preview_x1; i&lt;=preview_x2; i++) {
+        for (j=preview_y1; j&lt;=preview_y2; j++) {
+            if (obj_editor_cursor.matriz_desenho_270[i,j]!=-1) {
+                //draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],8+(i*16),8+480-(j*16));
+                draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],view_wport-104+(i*16)-(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+            }
+        }
+    }
+    /* DEBUG já comentado! :)
+    draw_set_color(c_red);
+    draw_rectangle(8+(obj_editor_cursor.x),8+480-(obj_editor_cursor.z),8+(obj_editor_cursor.x+16),8+480-(obj_editor_cursor.z-16),true);
+    draw_rectangle(8+(obj_editor_cursor.x)-80,8+480-(obj_editor_cursor.z)-80,8+(obj_editor_cursor.x+16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
+}
 draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
@@ -186,7 +243,7 @@ draw_set_color(c_white);
 //~~~~void~~~~
 //
 //E depois, fazemos a projeção do mundo 3D.
-d3d_set_projection_ext(obj_editor_camera_look.x+lengthdir_x(distancia,direcao_view),obj_editor_camera_look.y+lengthdir_y(distancia,direcao_view),obj_editor_camera_look.z+distancia,obj_editor_camera_look.x,obj_editor_camera_look.y,obj_editor_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/2),(distancia*4));
+d3d_set_projection_ext(obj_editor_camera_look.x+8+lengthdir_x(distancia,direcao_view),obj_editor_camera_look.y+8+lengthdir_y(distancia,direcao_view),obj_editor_camera_look.z+distancia,obj_editor_camera_look.x+8,obj_editor_camera_look.y+8,obj_editor_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/2),(distancia*4));
 
 //E depois, renderiza uma gaiola, pro usuário saber quais são os limites da zoeira.
 d3d_draw_floor(0,0,0,640,480,0,sprite_get_texture(spr_editor_grid,0),40,30);

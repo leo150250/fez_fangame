@@ -23,6 +23,8 @@
   <scripts name="scripts">
     <script>scripts\scr_colisao.gml</script>
     <script>scripts\scr_updatez.gml</script>
+    <script>scripts\scr_open_level.gml</script>
+    <script>scripts\scr_save_level.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_gomez</object>

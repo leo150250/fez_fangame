@@ -25,28 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>arquivo=file_text_open_read(get_open_filename("Fez4ever levels|*.f4e",""));
-create_gomez_x=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-create_gomez_y=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-create_gomez_z=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-num_blocks=file_text_read_string(arquivo);
-file_text_readln(arquivo);
-repeat(real(num_blocks)) {
-    create_block_x=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block_y=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block_z=file_text_read_string(arquivo);
-    file_text_readln(arquivo);
-    create_block=instance_create(real(create_block_x),real(create_block_y),obj_block);
-    create_block.z=real(create_block_z);
-}
-create_gomez=instance_create(real(create_gomez_x)+8,real(create_gomez_y)+8,obj_gomez);
-create_gomez.z=real(create_gomez_z);
-file_text_close(arquivo);
+            <string>scr_open_level(true);
 </string>
           </argument>
         </arguments>
