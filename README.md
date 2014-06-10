@@ -14,6 +14,20 @@ Lista de afazeres:
 Diário de Bordo
 ===============
 
+9 de Junho de 2014
+------------------
+ 
+Após um looongo descanso, eu voltei à ativa com o desenvolvimento do Fez4ever. Comecei melhorando algumas questões gráficas, como por exemplo, colocando água nas fases. O personagem ainda atravessa a água, mas já é uma grande melhoria, principalmente por se tratar de algo que deve ocupar a fase inteira.
+
+Ainda na questão de melhorias gráficas, alterei a resolução nativa do game (antes era 1360x768, agora é 1920x1080), pois notei que, em computadores com uma resolução nativa maior fica deveras FEIO, com tudo pixelizado demais, além da escala ficar terrível. Não sei que impacto isso terá em monitores menores, mas qualquer coisa, alguém me avisa que ficou uma porcaria! :)
+
+No editor, os arquivos das fases tiveram de ser atualizados, para poderem obter a informação da textura que é utilizada neles. Isso é para planos futuros, visando que ainda não dá para trocar a textura dos blocos no editor. EM COMPENSAÇÃO, o editor agora tem um “mini-preview”, mostrando como que a fase está na direção que está se editando. Isso ajuda muito caso queira fazer várias plataformas em diferentes profundidades (vide imagem).
+
+Ah, a questão do desempenho da vez passada, que fez as fases criadas no editor ficarem BEM lentas era simplesmente os frames por segundo da room que obtia o arquivo externo de fases, que estavam em 30 e não 60, dando a impressão de que o jogo estava lento. Heh!
+
+Foram detectados mais alguns bugs bizarros, como por exemplo, na visão de direção 0, o personagem não detecta o chão a partir do ponto 0 da fase (extrema direita), acabando, por assim dizer, “voar sobre as águas”... Não sei como isso aconteceu, mas aparentemente é só nesse lado que esse bug está acontecendo. Estranho!
+
+
 2 de Junho de 2014
 ------------------
 
