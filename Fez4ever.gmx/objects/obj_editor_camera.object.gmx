@@ -41,10 +41,12 @@ direcao_view=direcao-15;
 visao=80;
 distancia=128;
 
+texturas_offset=0;
+
 view_xview[0]=0;
 view_yview[0]=0;
-view_wview[0]=640;
-view_hview[0]=320;
+view_wview[0]=display_get_width();
+view_hview[0]=display_get_height();
 view_xport[0]=0;
 view_yport[0]=0;
 view_wport[0]=display_get_width();
@@ -134,7 +136,7 @@ if (direcao==0) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_0[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],8+480-(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],view_wport-104-(i*16)+(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],view_wport[0]-104-(i*16)+(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -153,7 +155,7 @@ if (direcao==90) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_90[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],8+480-(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],view_wport-104-(i*16)+(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],view_wport[0]-104-(i*16)+(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -172,7 +174,7 @@ if (direcao==180) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_180[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],8+(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],view_wport-104+(i*16)-(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],view_wport[0]-104+(i*16)-(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -191,7 +193,7 @@ if (direcao==270) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_270[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],8+(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],view_wport-104+(i*16)-(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],view_wport[0]-104+(i*16)-(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -200,14 +202,29 @@ if (direcao==270) {
     draw_rectangle(8+(obj_editor_cursor.x),8+480-(obj_editor_cursor.z),8+(obj_editor_cursor.x+16),8+480-(obj_editor_cursor.z-16),true);
     draw_rectangle(8+(obj_editor_cursor.x)-80,8+480-(obj_editor_cursor.z)-80,8+(obj_editor_cursor.x+16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
 }
+draw_set_color(c_white);
+draw_text(view_wport[0]-184,192,"Textura:");
+draw_sprite(obj_editor_cursor.textura_blocos,0,view_wport[0]-184+80,192);
+draw_sprite(obj_editor_cursor.textura_blocos,10,view_wport[0]-184+98,192);
+draw_sprite(obj_editor_cursor.textura_blocos,27,view_wport[0]-184+116,192);
+draw_sprite(obj_editor_cursor.textura_blocos,28,view_wport[0]-184+134,192);
+draw_sprite(obj_editor_cursor.textura_blocos,29,view_wport[0]-184+152,192);
+texturas_x=0;
+texturas_y=0;
+qtd_texturas=array_length_1d(obj_editor_cursor.texturas);
+for (i=texturas_offset*8; i&lt;qtd_texturas; i++) {
+    draw_sprite(obj_editor_cursor.texturas[i],0,view_wport[0]-184+(texturas_x*24),216+(texturas_y*24));
+    texturas_x+=1;
+}
 draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_text(0,0,"Aperte ESPAÇO para inserir/excluir um bloco
 Aperte ENTER para inserir o local de início
 Aperte S para salvar em arquivo
-Aperte O para carregar um arquivo
-");
+Aperte O para carregar um arquivo"+
+string(mouse_x)+" "+string(mouse_y)
+);
 
 </string>
           </argument>

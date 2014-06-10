@@ -10,6 +10,7 @@
   <sprites name="sprites">
     <sprite>sprites\spr_gomez</sprite>
     <sprite>sprites\spr_block</sprite>
+    <sprite>sprites\spr_block_2</sprite>
     <sprite>sprites\spr_nuvem</sprite>
     <sprite>sprites\spr_editor_cursor</sprite>
     <sprite>sprites\spr_editor_grid</sprite>
@@ -17,6 +18,7 @@
     <sprite>sprites\mask_none</sprite>
     <sprite>sprites\spr_block_test</sprite>
     <sprite>sprites\spr_agua</sprite>
+    <sprite>sprites\spr_sombra</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

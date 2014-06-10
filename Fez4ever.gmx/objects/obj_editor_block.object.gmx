@@ -46,8 +46,8 @@ lado_esq=choose(3,4,5,6);
 lado_bai=choose(3,4,5,6);
 
 //No topo e na base, seta a imagem 7.
-lado_topo=7;
-lado_base=7;
+lado_topo=28;
+lado_base=29;
 
 //O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
 //retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
@@ -492,7 +492,7 @@ and (encontrou_bai==1) {
 //e faz a mudança das texturas laterais de acordo.
 if (bloco_topo==noone) and (bloco_base==noone) {
     lado_topo=28;
-    lado_base=28;
+    lado_base=29;
 }
 if (bloco_topo==noone) and (bloco_base!=noone) {
     lado_dir+=7;
@@ -508,7 +508,7 @@ if (bloco_topo!=noone) and (bloco_base==noone) {
     lado_esq+=14;
     lado_bai+=14;
     lado_topo=-1;
-    lado_base=28;
+    lado_base=29;
 }
 if (bloco_topo!=noone) and (bloco_base!=noone) {
     lado_dir+=21;

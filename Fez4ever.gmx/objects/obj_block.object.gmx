@@ -53,6 +53,11 @@ lado_bai=choose(3,4,5,6);
 lado_topo=28;
 lado_base=29;
 
+sombra_dir=false;
+sombra_cim=false;
+sombra_esq=false;
+sombra_bai=false;
+
 //O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
 //retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
 //Isso é feito no próximo frame e não agora pois, pode ser que nesse exato momento que esse código estiver sendo executado,
@@ -90,6 +95,10 @@ bloco_esq=noone;
 bloco_bai=noone;
 bloco_topo=noone;
 bloco_base=noone;
+sombra_dir=false;
+sombra_cim=false;
+sombra_esq=false;
+sombra_bai=false;
 with (obj_block) {
     if (self.z==other.z) {
         if (self.x==other.x+16) and (self.y==other.y) {
@@ -105,8 +114,22 @@ with (obj_block) {
             other.bloco_bai=self.id;
         }
     }
-    if (self.z==other.z+16) and (self.x==other.x) and (self.y==other.y) {
-        other.bloco_topo=self.id;
+    if (self.z==other.z+16) {
+        if (self.x==other.x) and (self.y==other.y) {
+            other.bloco_topo=self.id;
+        }
+        if (self.x==other.x+16) and (self.y==other.y) {
+            other.sombra_dir=true;
+        }
+        if (self.x==other.x) and (self.y==other.y-16) {
+            other.sombra_cim=true;
+        }
+        if (self.x==other.x-16) and (self.y==other.y) {
+            other.sombra_esq=true;
+        }
+        if (self.x==other.x) and (self.y==other.y+16) {
+            other.sombra_bai=true;
+        }
     }
     if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
         other.bloco_base=self.id;
@@ -123,25 +146,25 @@ encontrou_bai=0;
 //Se a posição Z do bloco vizinho for a mesma do bloco atual, então significa que ele é realmente um vizinho, e seta a variável encontrou_xxx de acordo.
 //Primeiro, o bloco na posição x+16 deste (direita).
 with (bloco_dir) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_dir=1;
     }
 }
 //Depois, o bloco na posição y-16 deste (acima).
 with (bloco_cim) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_cim=1;
     }
 }
 //Depois, o bloco na posição x-16 deste (esquerda).
 with (bloco_esq) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_esq=1;
     }
 }
 //Depois, o bloco na posição y+16 deste (abaixo).
 with (bloco_bai) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_bai=1;
     }
 }
@@ -440,6 +463,9 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
 draw_set_color(c_white);
 if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_view&lt;180)) {
     d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(sprite_index,lado_cim),1,1);
+    if (sombra_cim==true) {
+        d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(spr_sombra,0),1,1);
+    }
 }
 
 //Topo:
@@ -449,12 +475,18 @@ if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture
 draw_set_color(c_ltgray);
 if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direcao_view&lt;90)) or ((obj_camera.direcao_view&gt;270) and (obj_camera.direcao_view&lt;450))) {
     d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(sprite_index,lado_dir),1,1);
+    if (sombra_dir==true) {
+        d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_sombra,0),1,1);
+    }
 }
 
 //Baixo:
 draw_set_color(c_gray);
 if (lado_bai&gt;-1) and (((obj_camera.direcao_view&gt;180) and (obj_camera.direcao_view&lt;360)) or ((obj_camera.direcao_view&gt;-180) and (obj_camera.direcao_view&lt;0))) {
     d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(sprite_index,lado_bai),1,1);
+    if (sombra_bai==true) {
+        d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_sombra,0),1,1);
+    }
 }
 
 //Base:
@@ -464,6 +496,9 @@ if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(sprit
 draw_set_color(c_ltgray);
 if (lado_esq&gt;-1) and ((obj_camera.direcao_view&gt;90) and (obj_camera.direcao_view&lt;270)) {
     d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(sprite_index,lado_esq),1,1);
+    if (sombra_esq==true) {
+        d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_sombra,0),1,1);
+    }
 }
 </string>
           </argument>

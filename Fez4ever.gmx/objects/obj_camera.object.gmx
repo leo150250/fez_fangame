@@ -57,8 +57,8 @@ alarm[0]=30;
 
 view_xview[0]=0;
 view_yview[0]=0;
-view_wview[0]=640;
-view_hview[0]=320;
+view_wview[0]=display_get_width();
+view_hview[0]=display_get_height();
 view_xport[0]=0;
 view_yport[0]=0;
 view_wport[0]=display_get_width();

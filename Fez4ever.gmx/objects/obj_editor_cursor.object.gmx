@@ -27,9 +27,6 @@
             <kind>1</kind>
             <string>z=0;
 
-instance_create(x,y,obj_editor_camera_look);
-instance_create(x,y,obj_editor_camera);
-
 for (i=0; i&lt;=30; i++) {
     for (j=0; j&lt;=35; j++) {
         matriz_desenho_0[i,j]=-1;
@@ -50,6 +47,15 @@ for (i=0; i&lt;=40; i++) {
         matriz_profundidade_270[i,j]=-1;
     }
 }
+
+texturas[0]=spr_block_test;
+texturas[1]=spr_block;
+texturas[2]=spr_block_2;
+textura_blocos=texturas[1];
+
+instance_create(x,y,obj_editor_camera_look);
+instance_create(x,y,obj_editor_camera);
+
 </string>
           </argument>
         </arguments>
@@ -78,6 +84,36 @@ for (i=0; i&lt;=40; i++) {
 x=median(0,x,640-16);
 y=median(0,y,480-16);
 z=median(0,z,560-16);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>for (i=0; i&lt;=8; i++;) {
+    if (mouse_x&gt;view_wport[0]-184+(i*24))
+    and (mouse_y&gt;216)
+    and (mouse_x&lt;view_wport[0]-184+(i*24)+16)
+    and (mouse_y&lt;216+16) {
+        textura_blocos=texturas[i];
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -372,6 +408,7 @@ with (obj_editor_block) {
 if (funcao==0) {
     id_bloco=instance_create(x,y,obj_editor_block);
     id_bloco.z=z;
+    id_bloco.sprite_index=textura_blocos;
 }
 </string>
           </argument>
