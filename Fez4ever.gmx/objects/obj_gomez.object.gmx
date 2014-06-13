@@ -77,6 +77,11 @@ bloqueio=false;
 //Quando essa variável estiver ativada, não pode ocorrer alterações na altura do personagem, nem atualização de profundidade, nem NADA.
 pause=false;
 
+cubebit=0;
+som_cubebit=1;
+cubeshard=0;
+som_cubeshard=1;
+
 ////////////////////////////////////////////////////////
 //Declaração de variáveis de fins estéticos (ou quase!):
 
@@ -239,6 +244,36 @@ if (pular&lt;=0) {
         </arguments>
       </action>
     </event>
+    <event eventtype="4" ename="obj_door">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (other.x==posicao_xblock-8) and (other.y==posicao_yblock-8) and (other.z==posicao_zblock-8) {
+    if (keyboard_check_pressed(vk_up)) {
+        if (other.porta==0) {
+            other.porta=0.02;
+            audio_play_sound(snd_open_door,1,false);
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="5" enumb="39">
       <action>
         <libid>1</libid>
@@ -380,6 +415,9 @@ if (pause==false) {
             z-=1;
         } else {
             zspeed=3.5;
+            if (audio_is_playing(snd_jump)==false) {
+                audio_play_sound(snd_jump,1,false);
+            }
         }
     }
 }
@@ -425,6 +463,32 @@ if (direcao==-1) { d3d_draw_wall(x-lengthdir_x(16,obj_camera.direcao_view-90),y-
 //Novamente, não sei por que isso ainda tá aqui se nem funciona.
 //Ah sim, é pra deixar o código bonitinho.
 d3d_set_zwriteenable(true);
+
+//DEBUG
+d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_block_test,28),1,1);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="115">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>window_set_fullscreen(false);
 </string>
           </argument>
         </arguments>

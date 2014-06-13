@@ -51,6 +51,7 @@ for (i=0; i&lt;=40; i++) {
 texturas[0]=spr_block_test;
 texturas[1]=spr_block;
 texturas[2]=spr_block_2;
+texturas[3]=spr_block_3;
 textura_blocos=texturas[1];
 
 instance_create(x,y,obj_editor_camera_look);

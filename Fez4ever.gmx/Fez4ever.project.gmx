@@ -5,12 +5,59 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound">
-    <sound>sound\snd_sweep</sound>
+    <sound>sound\snd_rotate_left</sound>
+    <sound>sound\snd_rotate_right</sound>
+    <sound>sound\snd_jump</sound>
+    <sound>sound\snd_open_door</sound>
+    <sounds name="collects">
+      <sounds name="splitupcube">
+        <sound>sound\snd_c2</sound>
+        <sound>sound\snd_csharp2</sound>
+        <sound>sound\snd_d2</sound>
+        <sound>sound\snd_dsharp2</sound>
+        <sound>sound\snd_e2</sound>
+        <sound>sound\snd_f2</sound>
+        <sound>sound\snd_fsharp2</sound>
+        <sound>sound\snd_g2</sound>
+        <sound>sound\snd_gsharp2</sound>
+        <sound>sound\snd_a2</sound>
+        <sound>sound\snd_asharp2</sound>
+        <sound>sound\snd_b2</sound>
+        <sound>sound\snd_c3</sound>
+        <sound>sound\snd_csharp3</sound>
+        <sound>sound\snd_d3</sound>
+        <sound>sound\snd_dsharp3</sound>
+        <sound>sound\snd_e3</sound>
+        <sound>sound\snd_f3</sound>
+        <sound>sound\snd_fsharp3</sound>
+        <sound>sound\snd_g3</sound>
+        <sound>sound\snd_gsharp3</sound>
+        <sound>sound\snd_a3</sound>
+        <sound>sound\snd_asharp3</sound>
+        <sound>sound\snd_b3</sound>
+        <sound>sound\snd_c4</sound>
+        <sound>sound\snd_assemble_c_maj</sound>
+        <sound>sound\snd_assemble_csharp_maj</sound>
+        <sound>sound\snd_assemble_d_maj</sound>
+        <sound>sound\snd_assemble_dsharp_maj</sound>
+        <sound>sound\snd_assemble_e_maj</sound>
+        <sound>sound\snd_assemble_f_maj</sound>
+        <sound>sound\snd_assemble_fsharp_maj</sound>
+        <sound>sound\snd_assemble_g_maj</sound>
+        <sound>sound\snd_assemble_gsharp_maj</sound>
+        <sound>sound\snd_assemble_a_maj</sound>
+        <sound>sound\snd_assemble_asharp_maj</sound>
+        <sound>sound\snd_assemble_b_maj</sound>
+        <sound>sound\snd_assemble_c3_maj</sound>
+      </sounds>
+    </sounds>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_gomez</sprite>
     <sprite>sprites\spr_block</sprite>
     <sprite>sprites\spr_block_2</sprite>
+    <sprite>sprites\spr_door_2</sprite>
+    <sprite>sprites\spr_block_3</sprite>
     <sprite>sprites\spr_nuvem</sprite>
     <sprite>sprites\spr_editor_cursor</sprite>
     <sprite>sprites\spr_editor_grid</sprite>
@@ -19,6 +66,10 @@
     <sprite>sprites\spr_block_test</sprite>
     <sprite>sprites\spr_agua</sprite>
     <sprite>sprites\spr_sombra</sprite>
+    <sprite>sprites\spr_cubebit</sprite>
+    <sprites name="HUD">
+      <sprite>sprites\spr_hud_cubebit</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -27,10 +78,13 @@
     <script>scripts\scr_updatez.gml</script>
     <script>scripts\scr_open_level.gml</script>
     <script>scripts\scr_save_level.gml</script>
+    <script>scripts\scr_cubebit.gml</script>
+    <script>scripts\scr_cubeshard.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_gomez</object>
     <object>objects\obj_block</object>
+    <object>objects\obj_door</object>
     <object>objects\obj_camera</object>
     <object>objects\obj_camera_look</object>
     <object>objects\obj_editor_camera</object>
@@ -40,6 +94,8 @@
     <object>objects\obj_editor_gomez</object>
     <object>objects\obj_loader</object>
     <object>objects\obj_menu</object>
+    <object>objects\obj_cubebit</object>
+    <object>objects\obj_hud_cubebit</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room_menu</room>

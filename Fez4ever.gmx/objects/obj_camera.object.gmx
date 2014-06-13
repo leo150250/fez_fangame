@@ -52,6 +52,12 @@ distancia=10000000;
 agua=0;
 alarm[0]=30;
 
+alpha_fade=1;
+target_fade=0;
+alpha_hud=1;
+target_hud=1;
+alarm[1]=150;
+
 //Funções para definir o jogo em tela-cheia.
 //Descomente-as somente SE QUISER DEIXAR O JOGO EM TELA-CHEIA. Durante o desenvolvimento, prefiro ele em janela mesmo.
 
@@ -64,6 +70,29 @@ view_yport[0]=0;
 view_wport[0]=display_get_width();
 view_hport[0]=display_get_height();
 display_set_gui_size(view_wport[0],view_hport[0]);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>target_hud=0;
 </string>
           </argument>
         </arguments>
@@ -144,6 +173,11 @@ if (direcao_view&lt;direcao) {
 if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
     direcao_view=round(direcao_view);
 }
+
+if (alpha_fade&gt;target_fade) { alpha_fade-=0.02; }
+if (alpha_fade&lt;target_fade) { alpha_fade+=0.02; }
+if (alpha_hud&gt;target_hud) { alpha_hud-=0.01; }
+if (alpha_hud&lt;target_hud) { alpha_hud+=0.01; }
 </string>
           </argument>
         </arguments>
@@ -224,6 +258,13 @@ distorcao=-32;
             <kind>1</kind>
             <string>//Código para o desenho do HUD do jogo
 
+draw_set_alpha(alpha_fade);
+draw_set_color(c_black);
+draw_rectangle(0,0,display_get_gui_width(),display_get_gui_height(),false);
+draw_set_alpha(alpha_hud);
+draw_set_color(c_white);
+draw_sprite(spr_hud_cubebit,obj_gomez.cubebit,16,16);
+
 //Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
 //Tenho que tirar isso mais tarde.
 //DEBUG!
@@ -268,12 +309,13 @@ draw_set_alpha(1);
 //Depois, setamos a coloração da projeção para c_white, para que nada sofra nenhuma alteração de cores...
 draw_set_color(c_white);
 //Em seguida, fazemos o fundo da fase com desenhos de retângulos coloridos em 2D:
+draw_rectangle_color(0,0,view_wview[0],view_hview[0],c_aqua,c_aqua,c_aqua,c_aqua,false);
 //Extremo céu
-draw_rectangle_color(0,-(obj_camera_look.z/5)+480,view_wview[0],480,c_aqua,c_aqua,c_blue,c_blue,false);
+//draw_rectangle_color(0,-(obj_camera_look.z/5)+480,view_wview[0],480,c_aqua,c_aqua,c_blue,c_blue,false);
 //Céu mediano
-draw_rectangle_color(0,-(obj_camera_look.z/5),view_wview[0],-(obj_camera_look.z/5)+480,c_white,c_white,c_aqua,c_aqua,false);
+//draw_rectangle_color(0,-(obj_camera_look.z/5),view_wview[0],-(obj_camera_look.z/5)+480,c_white,c_white,c_aqua,c_aqua,false);
 //Céu de baixo
-draw_rectangle_color(0,0,view_wview[0],-(obj_camera_look.z/5),c_white,c_white,c_white,c_white,false);
+//draw_rectangle_color(0,0,view_wview[0],-(obj_camera_look.z/5),c_white,c_white,c_white,c_white,false);
 //Depois, fazemos uma tentativa fracassada de criar um negócio de água:
 //draw_rectangle_color(0,0,view_wview[0],(view_hview[0]/2)-(obj_camera_look.z*2),c_blue,c_blue,c_blue,c_blue,false);
 //E depois, fazemos a projeção do mundo 3D.
@@ -395,7 +437,7 @@ distancia-=1000;
 //Altera a direção da câmera em -90, girando-a no sentido anti-horário, de acordo com a visão do mapa.
 if (obj_gomez.pause==false) {
     direcao-=90;
-    audio_play_sound(snd_sweep,1,false);
+    audio_play_sound(snd_rotate_right,1,false);
     
     //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.
     obj_gomez.pause=true;
@@ -456,7 +498,7 @@ visao-=0.001;
 //Altera a direção da câmera em +90, girando-a no sentido horário, de acordo com a visão do mapa.
 if (obj_gomez.pause==false) {
     direcao+=90;
-    audio_play_sound(snd_sweep,1,false);
+    audio_play_sound(snd_rotate_left,1,false);
     
     //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.
     obj_gomez.pause=true;

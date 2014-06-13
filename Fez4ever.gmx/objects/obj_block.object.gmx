@@ -58,6 +58,16 @@ sombra_cim=false;
 sombra_esq=false;
 sombra_bai=false;
 
+black_dir=0;
+black_cim=0;
+black_esq=0;
+black_bai=0;
+
+cor_cim=c_white;
+cor_dir=c_ltgray;
+cor_bai=c_gray;
+cor_esq=c_ltgray;
+
 //O alarme 0 vai calcular, no próximo frame, quem são os blocos vizinhos desse bloco,
 //retirar as texturas que não precisarão ser utilizadas e atualizar as texturas que correspondem as terminações corretas.
 //Isso é feito no próximo frame e não agora pois, pode ser que nesse exato momento que esse código estiver sendo executado,
@@ -99,6 +109,10 @@ sombra_dir=false;
 sombra_cim=false;
 sombra_esq=false;
 sombra_bai=false;
+black_dir=0;
+black_cim=0;
+black_esq=0;
+black_bai=0;
 with (obj_block) {
     if (self.z==other.z) {
         if (self.x==other.x+16) and (self.y==other.y) {
@@ -114,25 +128,41 @@ with (obj_block) {
             other.bloco_bai=self.id;
         }
     }
+    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
+        other.bloco_base=self.id;
+    }
     if (self.z==other.z+16) {
         if (self.x==other.x) and (self.y==other.y) {
             other.bloco_topo=self.id;
+            //other.black_dir=black_dir;
+            //other.black_cim=black_cim;
+            //other.black_esq=black_esq;
+            //other.black_bai=black_bai;
         }
         if (self.x==other.x+16) and (self.y==other.y) {
             other.sombra_dir=true;
+            other.black_dir+=1;
         }
         if (self.x==other.x) and (self.y==other.y-16) {
             other.sombra_cim=true;
+            other.black_cim+=1;
         }
         if (self.x==other.x-16) and (self.y==other.y) {
             other.sombra_esq=true;
+            other.black_esq+=1;
         }
         if (self.x==other.x) and (self.y==other.y+16) {
             other.sombra_bai=true;
+            other.black_bai+=1;
         }
     }
-    if (self.z==other.z-16) and (self.x==other.x) and (self.y==other.y) {
-        other.bloco_base=self.id;
+}
+with (obj_door) {
+    if (self.z==other.z) and (self.x==other.x+16) and (self.y==other.y) {
+        other.black_dir=4;
+    }
+    if (self.z==other.z-16) and (self.x==other.x+16) and (self.y==other.y) {
+        other.black_dir=4;
     }
 }
 
@@ -430,6 +460,38 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
     lado_topo=-1;
     lado_base=-1;
 }
+if (black_dir&gt;4) { black_dir=4; }
+if (black_cim&gt;4) { black_cim=4; }
+if (black_esq&gt;4) { black_esq=4; }
+if (black_bai&gt;4) { black_bai=4; }
+switch (black_dir) {
+    case 0: cor_dir=c_ltgray; break;
+    case 1: cor_dir=c_gray; break;
+    case 2: cor_dir=c_dkgray; break;
+    case 3: cor_dir=c_black; break;
+    case 4: cor_dir=c_black; break;
+}
+switch (black_cim) {
+    case 0: cor_cim=c_white; break;
+    case 1: cor_cim=c_ltgray; break;
+    case 2: cor_cim=c_gray; break;
+    case 3: cor_cim=c_dkgray; break;
+    case 4: cor_cim=c_black; break;
+}
+switch (black_esq) {
+    case 0: cor_esq=c_ltgray; break;
+    case 1: cor_esq=c_gray; break;
+    case 2: cor_esq=c_dkgray; break;
+    case 3: cor_esq=c_black; break;
+    case 4: cor_esq=c_black; break;
+}
+switch (black_bai) {
+    case 0: cor_bai=c_gray; break;
+    case 1: cor_bai=c_dkgray; break;
+    case 2: cor_bai=c_black; break;
+    case 3: cor_bai=c_black; break;
+    case 4: cor_bai=c_black; break;
+}
 </string>
           </argument>
         </arguments>
@@ -460,7 +522,7 @@ if (bloco_topo!=noone) and (bloco_base!=noone) {
 //para fazer o efeito de shading, como se a luz estivesse vinda de algum lugar.
 
 //Cima:
-draw_set_color(c_white);
+draw_set_color(cor_cim);
 if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_view&lt;180)) {
     d3d_draw_wall(x+16,y,z+16,x,y,z,sprite_get_texture(sprite_index,lado_cim),1,1);
     if (sombra_cim==true) {
@@ -469,10 +531,11 @@ if (lado_cim&gt;-1) and ((obj_camera.direcao_view&gt;0) and (obj_camera.direcao_
 }
 
 //Topo:
+draw_set_color(c_white);
 if (lado_topo&gt;-1) { d3d_draw_floor(x,y,z+16,x+16,y+16,z+16,sprite_get_texture(sprite_index,lado_topo),1,1); }
 
 //Direita:
-draw_set_color(c_ltgray);
+draw_set_color(cor_dir);
 if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direcao_view&lt;90)) or ((obj_camera.direcao_view&gt;270) and (obj_camera.direcao_view&lt;450))) {
     d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(sprite_index,lado_dir),1,1);
     if (sombra_dir==true) {
@@ -481,23 +544,24 @@ if (lado_dir&gt;-1) and (((obj_camera.direcao_view&gt;-90) and (obj_camera.direc
 }
 
 //Baixo:
-draw_set_color(c_gray);
+draw_set_color(cor_bai);
 if (lado_bai&gt;-1) and (((obj_camera.direcao_view&gt;180) and (obj_camera.direcao_view&lt;360)) or ((obj_camera.direcao_view&gt;-180) and (obj_camera.direcao_view&lt;0))) {
     d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(sprite_index,lado_bai),1,1);
     if (sombra_bai==true) {
-        d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_sombra,0),1,1);
+        d3d_draw_wall(x,y+16,z+16,x+16,y+16,z,sprite_get_texture(spr_sombra,0),1,1);
     }
 }
 
 //Base:
+draw_set_color(c_gray);
 if (lado_base&gt;-1) { d3d_draw_floor(x,y,z,x+16,y+16,z,sprite_get_texture(sprite_index,lado_base),1,1); }
 
 //Esquerda:
-draw_set_color(c_ltgray);
+draw_set_color(cor_esq);
 if (lado_esq&gt;-1) and ((obj_camera.direcao_view&gt;90) and (obj_camera.direcao_view&lt;270)) {
     d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(sprite_index,lado_esq),1,1);
     if (sombra_esq==true) {
-        d3d_draw_wall(x+16,y+16,z+16,x+16,y,z,sprite_get_texture(spr_sombra,0),1,1);
+        d3d_draw_wall(x,y,z+16,x,y+16,z,sprite_get_texture(spr_sombra,0),1,1);
     }
 }
 </string>

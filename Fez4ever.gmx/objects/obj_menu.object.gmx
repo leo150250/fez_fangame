@@ -34,14 +34,14 @@ view_xport[0]=0;
 view_yport[0]=0;
 view_wport[0]=display_get_width();
 view_hport[0]=display_get_height();
-display_set_gui_size(view_wport[0],view_hport[0]);
+display_set_gui_size(display_get_width(),display_get_height());
 d3d_end();
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>

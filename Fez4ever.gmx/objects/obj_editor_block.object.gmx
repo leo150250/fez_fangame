@@ -234,25 +234,25 @@ encontrou_bai=0;
 //Se a posição Z do bloco vizinho for a mesma do bloco atual, então significa que ele é realmente um vizinho, e seta a variável encontrou_xxx de acordo.
 //Primeiro, o bloco na posição x+16 deste (direita).
 with (bloco_dir) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_dir=1;
     }
 }
 //Depois, o bloco na posição y-16 deste (acima).
 with (bloco_cim) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_cim=1;
     }
 }
 //Depois, o bloco na posição x-16 deste (esquerda).
 with (bloco_esq) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_esq=1;
     }
 }
 //Depois, o bloco na posição y+16 deste (abaixo).
 with (bloco_bai) {
-    if (self.z==other.z) {
+    if (self.sprite_index==other.sprite_index) {
         other.encontrou_bai=1;
     }
 }
