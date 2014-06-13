@@ -13,6 +13,20 @@ Lista de afazeres:
 Diário de Bordo
 ===============
 
+13 de Junho de 2014
+-------------------
+
+Hoje removi alguns pedaços de debug que tinha no código, e acrescentei mais algumas funcionalidades.
+
+Consegui arrumar o bug da “resolução nativa”. Por incrível que pareça, o Game Maker, mesmo em tela cheia, mantém a resolução do jogo de acordo com o tamanho DA JANELA do jogo. Isto é, se a janela estiver em 640x480 e o jogo mudar para tela cheia, ele vai escalonar todos os pixels, e manterá a tela nativa em 640x480. O que estava acontecendo é que, quando o jogo inicia, ele seta o tamanho da janela para o tamanho que está no projeto, e não altera isso a menos que haja algum comando de mudança de tamanho da janela (mesmo o jogo estando em fullscreen). Sendo assim, coloquei alguns comandos para ele setar o tamanho da janela para o tamanho do monitor, e aí sim entrar em fullscreen. Isso resolveu, aparentemente.
+
+Aproveitei para, já que peguei todos os sons dos cubos e já tinha o sistema quase pronto, fiz a função para o personagem pular quando pegar 8 cube bits. Ficou tão bonitinho!
+
+E, o editor agora possui suporte para colocar cubebits nas fases, através da tecla C. Não se preocupe se o arquivo de fazer fase é antigo; Na hora de salvar, o editor o atualizará para a versão 4.
+
+E, é hora de mais um executável: https://github.com/leo150250/fez_fangame/raw/master/.EXE-builds/Fez4ever-Default-0.0.0.2.exe
+(Absurdos 15MB!!!! Como pode isso, só coloquei alguns sonszinhos de 5 segundos cada, seguindo por 2 oitavas completas na escala cromática. Como pode!?)
+
 12 de Junho de 2014
 -------------------
  
