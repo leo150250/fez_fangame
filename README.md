@@ -9,10 +9,46 @@ Todas as sprites foram ripadas do jogo original, mas só utilizei o Google pra i
 
 Lista de afazeres:
 * Precisamos de todas as sprites do Gomez e dos blocos do jogo original!
-* O jogo não possui som nenhum ainda. PRECISAMOS DE SOM! (Tá, tem umzinho, mas nem é do jogo original. :( )
 
 Diário de Bordo
 ===============
+
+12 de Junho de 2014
+-------------------
+ 
+Não fiz muita coisa. O fato de ter sido jogo da copa acabou por arrumar diversos outros compromissos, então tive pouco tempo pra trabalhar no jogo.
+
+Finalizei um pequeno detalhe da porta e arrumei o bug do fundo, que estava preto. Em seguida, comecei a programação dos cube bits (No jogo original, ao coletar 8 cube bits, finaliza-se um cube shard [E toca o somzinho mais legal do jogo!]). Já está funcionando tranquilamente, apesar de eles ainda não terem a animação do cube bit girando enquanto não é coletado e também a animação dele “sinalizando”, indicando onde está, mas já está funcionando. O HUD está funcionando, e acrescentei um comando de “fade” nos códigos. 
+
+Aliás, vou ter que fazer alguma POG para poder arrumar a questão da resolução nativa. Infelizmente, o detalhe da resolução nativa é associado ao tamanho da room, e esse tamanho da room é uma variável apenas de leitura, tendo que ser definida somente no projeto, não dá pra alterar durante o jogo. Como resultado, se eu deixar a resolução nativa para a resolução do meu notebook (1366x768), em resoluções maiores, a coisa fica feia pra caramba, com pixels desproporcionais, igual os jogos da PixelOwl (Alô, Star Wars Tiny Death Star?). O mesmo efeito ocorre se for o inverso (resolução 1920x1080 no notebook), mas aí, além do visual, é o desempenho também que piora. :/
+
+Nada demais, apenas isso mesmo.
+
+11 de Junho de 2014
+-------------------
+ 
+Corrigido um pequeno bug com as sombras, apesar de ter notado que, no jogo original, os blocos que recebem o detalhamento de sombra ficam um pouco mais escuros que os outros, por estarem em um plano para trás. Estou pensando ainda como farei isso, apesar de ter um norte já: Pegar a variável que define se o bloco recebe sombra naquela lateral ou não, e atribuir de acordo, replicando aquela configuração para todos os blocos que estão logo abaixo dele...
+
+No editor, precisei alterar mais uma vez a forma como os arquivos são salvos, e dessa vez fiz de tal modo que é registrada a “versão” do arquivo. Se for uma versão antiga, o sistema trata o arquivo conforme a versão dada, mas na hora de salvar, ele atualiza a versão. Além do mais, acrescentei mais uma textura ao editor.
+
+E, uma novidade: Depois de muita pesquisa pelas entranhas do Google, graças ao usuário fesh0r, do fórum Xentax (http://forum.xentax.com/viewtopic.php?p=80479#p80479), pude utilizar um extrator de .pak do Fez que ele desenvolveu em Python para retirar todos os sons do jogo. Agora temos os sons originais! \o/
+
+Infelizmente, o extrator dele não retirou todas as texturas utilizadas no jogo original, o que me força ainda a ter que usufruir de spriters para retirar algumas imagens do jogo. :/
+
+Ademais, comecei a elaborar as portas do jogo, para começar a fazer as transições entre HUBs. Elas já tem a visualização na direção 0, e tem a animação da porta abrindo, mas o personagem ainda não a atravessa.
+
+Amanhã sai executável!
+
+10 de Junho de 2014
+-------------------
+ 
+Não fiz muita coisa, apenas o reconhecimento das texturas diferentes no editor agora. Basta apenas selecionar a textura e sair fazendo a fase tranquilamente. Múltiplas texturas são permitidas, apesar de eu achar que as fases tem que ser separadas por temas (tema com a textura de ruínas, tema com a textura de floresta, tema com isso, tema com aquilo, bla bla bla bla bla).
+
+Ainda não corrigi alguns bugs de colisão, mas amanhã será o dia em que testarei se a travessia direta por um buraco, e que gira 180° estará funcionando (tem que estar!).
+
+Hoje joguei também um pouquinho de Fez e, definitivamente, preciso de alguém que pegue pra mim os sons do jogo original. :/
+
+Além do mais, fiz o sistema de detecção de sombras, apesar de estar com alguns bugs ainda! :)
 
 9 de Junho de 2014
 ------------------
