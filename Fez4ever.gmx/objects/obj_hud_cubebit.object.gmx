@@ -102,7 +102,7 @@ for (i=50; i&gt;=0; i--;) {
             <kind>1</kind>
             <string>draw_set_alpha(1);
 draw_set_color(c_white);
-draw_sprite_ext(spr_cubebit,0,x,y,3,3,x,c_white,1);
+draw_sprite_ext(spr_cubebit,0,x,y,2,2,x,c_white,1);
 draw_set_color(c_yellow);
 for (i=0; i&lt;=50; i++) {
     draw_set_alpha(1-(i/50));

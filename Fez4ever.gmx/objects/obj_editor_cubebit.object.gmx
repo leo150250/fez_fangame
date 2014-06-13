@@ -25,53 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>z=0;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (obj_camera.direcao==0) {
-    if (y==obj_gomez.posicao_yblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
-        scr_cubebit();
-    }
-}
-if (obj_camera.direcao==90) {
-    if (x==obj_gomez.posicao_xblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
-        scr_cubebit();
-    }
-}
-if (obj_camera.direcao==180) {
-    if (y==obj_gomez.posicao_yblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
-        scr_cubebit();
-    }
-}
-if (obj_camera.direcao==270) {
-    if (x==obj_gomez.posicao_xblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
-        scr_cubebit();
-    }
-}
+            <string>//Códigos executados quando o bloco é iniciado
+
+//Todo bloco tem uma altura, que é definida pela variável z:
+z=0;
 </string>
           </argument>
         </arguments>
@@ -94,7 +51,9 @@ if (obj_camera.direcao==270) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_white);
+            <string>//Código de desenho do bloco:
+
+draw_set_color(c_white);
 d3d_draw_block(x+6,y+6,z+6,x+10,y+10,z+10,sprite_get_texture(spr_cubebit,0),1,1);
 </string>
           </argument>
@@ -115,6 +74,6 @@ d3d_draw_block(x+6,y+6,z+6,x+10,y+10,z+10,sprite_get_texture(spr_cubebit,0),1,1)
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
     <point>0,0</point>
-    <point>4,4</point>
+    <point>8,8</point>
   </PhysicsShapePoints>
 </object>

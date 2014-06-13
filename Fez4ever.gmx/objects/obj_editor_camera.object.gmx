@@ -43,15 +43,7 @@ distancia=128;
 
 texturas_offset=0;
 
-view_xview[0]=0;
-view_yview[0]=0;
-view_wview[0]=display_get_width();
-view_hview[0]=display_get_height();
-view_xport[0]=0;
-view_yport[0]=0;
-view_wport[0]=display_get_width();
-view_hport[0]=display_get_height();
-display_set_gui_size(display_get_width(),display_get_height());
+scr_resolucao(false);
 </string>
           </argument>
         </arguments>
@@ -123,9 +115,9 @@ if ((direcao-15)-direcao_view&lt;0.1) and (direcao_view-(direcao-15)&lt;0.1) {
           <argument>
             <kind>1</kind>
             <string>draw_set_color(c_black);
-draw_rectangle(view_wport[0]-192,0,view_wport[0],view_hport[0],false);
+draw_rectangle(display_get_gui_width()-192,0,display_get_gui_width(),display_get_gui_height(),false);
 draw_set_color(c_gray);
-draw_rectangle(view_wport[0]-192+8,8,view_wport[0]-8,184,true);
+draw_rectangle(display_get_gui_width()-192+8,8,display_get_gui_width()-8,184,true);
 if (direcao==0) {
     draw_set_color(c_ltgray);
     preview_x1=clamp((obj_editor_cursor.y-80)/16,0,30);
@@ -136,7 +128,7 @@ if (direcao==0) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_0[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],8+480-(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],view_wport[0]-104-(i*16)+(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_0[i,j],obj_editor_cursor.matriz_textura_0[i,j],display_get_gui_width()-104-(i*16)+(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -155,7 +147,7 @@ if (direcao==90) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_90[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],8+480-(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],view_wport[0]-104-(i*16)+(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_90[i,j],obj_editor_cursor.matriz_textura_90[i,j],display_get_gui_width()-104-(i*16)+(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -174,7 +166,7 @@ if (direcao==180) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_180[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],8+(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],view_wport[0]-104+(i*16)-(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_180[i,j],obj_editor_cursor.matriz_textura_180[i,j],display_get_gui_width()-104+(i*16)-(obj_editor_cursor.y),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -193,7 +185,7 @@ if (direcao==270) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_270[i,j]!=-1) {
                 //draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],8+(i*16),8+480-(j*16));
-                draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],view_wport[0]-104+(i*16)-(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
+                draw_sprite(obj_editor_cursor.matriz_desenho_270[i,j],obj_editor_cursor.matriz_textura_270[i,j],display_get_gui_width()-104+(i*16)-(obj_editor_cursor.x),8+80-(j*16)+(obj_editor_cursor.z));
             }
         }
     }
@@ -203,17 +195,17 @@ if (direcao==270) {
     draw_rectangle(8+(obj_editor_cursor.x)-80,8+480-(obj_editor_cursor.z)-80,8+(obj_editor_cursor.x+16)+80,8+480-(obj_editor_cursor.z-16)+80,true);*/
 }
 draw_set_color(c_white);
-draw_text(view_wport[0]-184,192,"Textura:");
-draw_sprite(obj_editor_cursor.textura_blocos,0,view_wport[0]-184+80,192);
-draw_sprite(obj_editor_cursor.textura_blocos,10,view_wport[0]-184+98,192);
-draw_sprite(obj_editor_cursor.textura_blocos,27,view_wport[0]-184+116,192);
-draw_sprite(obj_editor_cursor.textura_blocos,28,view_wport[0]-184+134,192);
-draw_sprite(obj_editor_cursor.textura_blocos,29,view_wport[0]-184+152,192);
+draw_text(display_get_gui_width()-184,192,"Textura:");
+draw_sprite(obj_editor_cursor.textura_blocos,0,display_get_gui_width()-184+80,192);
+draw_sprite(obj_editor_cursor.textura_blocos,10,display_get_gui_width()-184+98,192);
+draw_sprite(obj_editor_cursor.textura_blocos,27,display_get_gui_width()-184+116,192);
+draw_sprite(obj_editor_cursor.textura_blocos,28,display_get_gui_width()-184+134,192);
+draw_sprite(obj_editor_cursor.textura_blocos,29,display_get_gui_width()-184+152,192);
 texturas_x=0;
 texturas_y=0;
 qtd_texturas=array_length_1d(obj_editor_cursor.texturas);
 for (i=texturas_offset*8; i&lt;qtd_texturas; i++) {
-    draw_sprite(obj_editor_cursor.texturas[i],0,view_wport[0]-184+(texturas_x*24),216+(texturas_y*24));
+    draw_sprite(obj_editor_cursor.texturas[i],0,display_get_gui_width()-184+(texturas_x*24),216+(texturas_y*24));
     texturas_x+=1;
 }
 draw_set_color(c_black);

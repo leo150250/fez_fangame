@@ -1,9 +1,3 @@
-view_visible[0]=false;
-window_set_fullscreen(false);
-display_reset(4,true);
-window_set_size(display_get_width()/3,display_get_height()/3);
-window_center();
-
 if (argument0==true) {
     objeto_bloco=obj_block;
     objeto_gomez=obj_gomez;

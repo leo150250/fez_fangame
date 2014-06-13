@@ -62,6 +62,35 @@ instance_create(x,y,obj_editor_camera);
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (funcao_dialog=="save") {
+    scr_save_level_dialog();
+}
+if (funcao_dialog=="load") {
+    scr_open_level_dialog(false);
+}
+scr_resolucao(false);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -108,9 +137,9 @@ z=median(0,z,560-16);
           <argument>
             <kind>1</kind>
             <string>for (i=0; i&lt;=8; i++;) {
-    if (mouse_x&gt;view_wport[0]-184+(i*24))
+    if (mouse_x&gt;display_get_gui_width()-184+(i*24))
     and (mouse_y&gt;216)
-    and (mouse_x&lt;view_wport[0]-184+(i*24)+16)
+    and (mouse_x&lt;display_get_gui_width()-184+(i*24)+16)
     and (mouse_y&lt;216+16) {
         textura_blocos=texturas[i];
     }
@@ -163,7 +192,7 @@ d3d_draw_block(x,y,z+16,x+16,y+16,z,sprite_get_texture(spr_editor_cursor,0),1,1)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_save_level();
+            <string>scr_prepare_dialog("save");
 </string>
           </argument>
         </arguments>
@@ -235,7 +264,7 @@ game_restart();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_open_level(false);
+            <string>scr_prepare_dialog("load");
 </string>
           </argument>
         </arguments>
@@ -259,6 +288,41 @@ game_restart();
           <argument>
             <kind>1</kind>
             <string>z+=16;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="67">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>funcao=0;
+with (obj_editor_cubebit) {
+    if (x==obj_editor_cursor.x) and
+    (y==obj_editor_cursor.y) and
+    (z==obj_editor_cursor.z) {
+        obj_editor_cursor.funcao=1;
+        instance_destroy();        
+    }
+}
+if (funcao==0) {
+    id_bloco=instance_create(x,y,obj_editor_cubebit);
+    id_bloco.z=z;
+}
 </string>
           </argument>
         </arguments>
@@ -433,7 +497,8 @@ if (funcao==0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>id_bloco=instance_create(x,y,obj_editor_gomez);
+            <string>with (obj_editor_gomez) { instance_destroy(); }
+id_bloco=instance_create(x,y,obj_editor_gomez);
 id_bloco.z=z;
 </string>
           </argument>

@@ -76,10 +76,12 @@
   <scripts name="scripts">
     <script>scripts\scr_colisao.gml</script>
     <script>scripts\scr_updatez.gml</script>
-    <script>scripts\scr_open_level.gml</script>
-    <script>scripts\scr_save_level.gml</script>
+    <script>scripts\scr_prepare_dialog.gml</script>
+    <script>scripts\scr_open_level_dialog.gml</script>
+    <script>scripts\scr_save_level_dialog.gml</script>
     <script>scripts\scr_cubebit.gml</script>
     <script>scripts\scr_cubeshard.gml</script>
+    <script>scripts\scr_resolucao.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_gomez</object>
@@ -92,11 +94,16 @@
     <object>objects\obj_editor_cursor</object>
     <object>objects\obj_editor_block</object>
     <object>objects\obj_editor_gomez</object>
+    <object>objects\obj_editor_cubebit</object>
     <object>objects\obj_loader</object>
     <object>objects\obj_menu</object>
     <object>objects\obj_cubebit</object>
     <object>objects\obj_hud_cubebit</object>
+    <object>objects\obj_cubeshard_animation</object>
   </objects>
+  <timelines name="timelines">
+    <timeline>timelines\tl_cubeshard</timeline>
+  </timelines>
   <rooms name="rooms">
     <room>rooms\room_menu</room>
     <room>rooms\room_teste</room>

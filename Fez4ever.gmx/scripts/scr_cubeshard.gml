@@ -19,3 +19,8 @@ obj_gomez.som_cubeshard+=1;
 if (obj_gomez.som_cubeshard>13) {
     obj_gomez.som_cubeshard=1;
 }
+with (obj_gomez) {
+    timeline_index=tl_cubeshard;
+    timeline_position=0;
+    timeline_running=true;
+}

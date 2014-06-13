@@ -48,6 +48,7 @@ visao=0.001;
 //distancia = distância da câmera de seu foco. Está em um valor extremamente alto para pode realizar o efeito da projeção ortogonal.
 //Jogos TPS (Third-person Shooter) costumam ter esse valor entre 96 e 256.
 distancia=10000000;
+distancia_target=10000000;
 
 agua=0;
 alarm[0]=30;
@@ -61,15 +62,7 @@ alarm[1]=150;
 //Funções para definir o jogo em tela-cheia.
 //Descomente-as somente SE QUISER DEIXAR O JOGO EM TELA-CHEIA. Durante o desenvolvimento, prefiro ele em janela mesmo.
 
-view_xview[0]=0;
-view_yview[0]=0;
-view_wview[0]=display_get_width();
-view_hview[0]=display_get_height();
-view_xport[0]=0;
-view_yport[0]=0;
-view_wport[0]=display_get_width();
-view_hport[0]=display_get_height();
-display_set_gui_size(view_wport[0],view_hport[0]);
+scr_resolucao(false);
 </string>
           </argument>
         </arguments>
@@ -174,6 +167,9 @@ if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
     direcao_view=round(direcao_view);
 }
 
+if (distancia&gt;distancia_target) { distancia-=(distancia-distancia_target)/10 }
+if (distancia&lt;distancia_target) { distancia+=(distancia_target-distancia)/10 }
+
 if (alpha_fade&gt;target_fade) { alpha_fade-=0.02; }
 if (alpha_fade&lt;target_fade) { alpha_fade+=0.02; }
 if (alpha_hud&gt;target_hud) { alpha_hud-=0.01; }
@@ -268,6 +264,9 @@ draw_sprite(spr_hud_cubebit,obj_gomez.cubebit,16,16);
 //Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
 //Tenho que tirar isso mais tarde.
 //DEBUG!
+draw_set_alpha(1);
+//draw_sprite(spr_cubebit,0,display_get_gui_width()/2,display_get_gui_height()/2);
+/*
 draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
@@ -279,6 +278,7 @@ obj_gomez.atual_z: "+string(obj_gomez.atual_z)+"
 obj_gomez.bloqueio: "+string(obj_gomez.bloqueio)+"
 instance_number(obj_block): "+string(instance_number(obj_block))
 );
+*/
 </string>
           </argument>
         </arguments>
