@@ -80,6 +80,7 @@ porta=0;
           <argument>
             <kind>1</kind>
             <string>draw_set_color(c_white);
+draw_set_alpha(1);
 if (direcao==0) {
     //Frente:
     d3d_draw_wall(x+4,y+24,z+32,x+4,y+16,z,sprite_get_texture(sprite_index,0),1,4);

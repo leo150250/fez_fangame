@@ -44,6 +44,7 @@ distorcao=0;
 //visao = ângulo de abertura da câmera. Está em um valor minúsculo pois a câmera está MUITO afastada dos objetos, precisando de um zoom absurdo.
 //Jogos FPS normais tendem a ter esse valor entre 60 e 85.
 visao=0.001;
+visao_target=0.001;
 
 //distancia = distância da câmera de seu foco. Está em um valor extremamente alto para pode realizar o efeito da projeção ortogonal.
 //Jogos TPS (Third-person Shooter) costumam ter esse valor entre 96 e 256.
@@ -169,6 +170,8 @@ if (direcao-direcao_view&lt;0.1) and (direcao_view-direcao&lt;0.1) {
 
 if (distancia&gt;distancia_target) { distancia-=(distancia-distancia_target)/10 }
 if (distancia&lt;distancia_target) { distancia+=(distancia_target-distancia)/10 }
+if (visao&gt;visao_target) { visao-=(visao-visao_target)/10 }
+if (visao&lt;visao_target) { visao+=(visao_target-visao)/10 }
 
 if (alpha_fade&gt;target_fade) { alpha_fade-=0.02; }
 if (alpha_fade&lt;target_fade) { alpha_fade+=0.02; }
@@ -259,12 +262,22 @@ draw_set_color(c_black);
 draw_rectangle(0,0,display_get_gui_width(),display_get_gui_height(),false);
 draw_set_alpha(alpha_hud);
 draw_set_color(c_white);
-draw_sprite(spr_hud_cubebit,obj_gomez.cubebit,16,16);
+draw_sprite(spr_hud_cubebit,obj_gomez.cubebit,32,32);
+draw_sprite(spr_hud_cubeshard,0,32,96);
+draw_sprite(spr_hud_key,0,32,160);
+draw_sprite(spr_hud_anticube,0,32,224);
+draw_set_color(c_black);
+draw_set_halign(fa_left);
+draw_set_valign(fa_middle);
+draw_text(64,32,string(obj_gomez.cubebit));
+draw_text(64,96,string(obj_gomez.cubeshard));
+draw_text(64,160,0);
+draw_text(64,224,string(obj_gomez.anticube));
 
 //Esses códigos aqui embaixo são só pra exibir algumas variáveis na tela.
 //Tenho que tirar isso mais tarde.
 //DEBUG!
-draw_set_alpha(1);
+//draw_set_alpha(1);
 //draw_sprite(spr_cubebit,0,display_get_gui_width()/2,display_get_gui_height()/2);
 /*
 draw_set_color(c_black);

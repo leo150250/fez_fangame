@@ -233,7 +233,7 @@
     <option_use_new_audio>True</option_use_new_audio>
     <option_variableerrors>False</option_variableerrors>
     <option_version>100</option_version>
-    <option_version_build>2</option_version_build>
+    <option_version_build>3</option_version_build>
     <option_version_company>Vincio Studios</option_version_company>
     <option_version_copyright></option_version_copyright>
     <option_version_description></option_version_description>
@@ -277,7 +277,7 @@
     <option_win8_texture_page>1024</option_win8_texture_page>
     <option_win8_wide_logo>Configs\Default\Windows8\logos\logo310.png</option_win8_wide_logo>
     <option_windowcolor>clBlack</option_windowcolor>
-    <option_windows_build_version>2</option_windows_build_version>
+    <option_windows_build_version>3</option_windows_build_version>
     <option_windows_company_info>Vincio Studios</option_windows_company_info>
     <option_windows_copyright_info></option_windows_copyright_info>
     <option_windows_description_info></option_windows_description_info>
@@ -294,7 +294,7 @@
     <option_windows_save_location>0</option_windows_save_location>
     <option_windows_splash_screen>Configs\Default\windows\splash.png</option_windows_splash_screen>
     <option_windows_steam_app_id>0</option_windows_steam_app_id>
-    <option_windows_texture_page>256</option_windows_texture_page>
+    <option_windows_texture_page>2048</option_windows_texture_page>
     <option_winphone_480_splash_image>Configs\Default\WinPhone\SplashScreenImage480.jpg</option_winphone_480_splash_image>
     <option_winphone_720_splash_image>Configs\Default\WinPhone\SplashScreenImage720.jpg</option_winphone_720_splash_image>
     <option_winphone_768_splash_image>Configs\Default\WinPhone\SplashScreenImage.jpg</option_winphone_768_splash_image>

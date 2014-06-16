@@ -116,6 +116,7 @@ if ((direcao-15)-direcao_view&lt;0.1) and (direcao_view-(direcao-15)&lt;0.1) {
             <kind>1</kind>
             <string>draw_set_color(c_black);
 draw_rectangle(display_get_gui_width()-192,0,display_get_gui_width(),display_get_gui_height(),false);
+draw_rectangle(0,display_get_gui_height()-64,display_get_gui_width(),display_get_gui_height(),false);
 draw_set_color(c_gray);
 draw_rectangle(display_get_gui_width()-192+8,8,display_get_gui_width()-8,184,true);
 if (direcao==0) {

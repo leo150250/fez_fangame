@@ -60,11 +60,12 @@ if (vspeed&lt;0) {
           <argument>
             <kind>1</kind>
             <string>motion_add(point_direction(x,y,-1024,-1024),1);
-if (speed&gt;16) {
+if (speed&gt;8) {
     speed-=2;
 }
 if (x&lt;-512) or (y&lt;-512) {
     if (obj_gomez.cubebit&gt;=8) {
+        obj_gomez.cubebit-=8;
         scr_cubeshard();
     }
     instance_destroy();

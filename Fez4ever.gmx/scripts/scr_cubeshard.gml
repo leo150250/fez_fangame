@@ -1,5 +1,4 @@
 obj_gomez.cubeshard+=1;
-obj_gomez.cubebit=0;
 switch (obj_gomez.som_cubeshard) {
     case 1: audio_play_sound(snd_assemble_c_maj,1,false); break;
     case 2: audio_play_sound(snd_assemble_csharp_maj,1,false); break;

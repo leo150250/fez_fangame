@@ -54,22 +54,32 @@
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_gomez</sprite>
-    <sprite>sprites\spr_block</sprite>
-    <sprite>sprites\spr_block_2</sprite>
-    <sprite>sprites\spr_door_2</sprite>
-    <sprite>sprites\spr_block_3</sprite>
-    <sprite>sprites\spr_nuvem</sprite>
-    <sprite>sprites\spr_editor_cursor</sprite>
-    <sprite>sprites\spr_editor_grid</sprite>
+    <sprites name="Texturas">
+      <sprite>sprites\spr_block</sprite>
+      <sprite>sprites\spr_block_2</sprite>
+      <sprite>sprites\spr_block_test</sprite>
+      <sprite>sprites\spr_block_3</sprite>
+      <sprite>sprites\spr_door_2</sprite>
+    </sprites>
     <sprite>sprites\mask_block</sprite>
     <sprite>sprites\mask_none</sprite>
-    <sprite>sprites\spr_block_test</sprite>
+    <sprite>sprites\spr_nuvem</sprite>
     <sprite>sprites\spr_agua</sprite>
     <sprite>sprites\spr_sombra</sprite>
     <sprite>sprites\spr_cubebit</sprite>
+    <sprite>sprites\spr_cubeshard</sprite>
+    <sprite>sprites\spr_anticube</sprite>
     <sprites name="HUD">
       <sprite>sprites\spr_hud_cubebit</sprite>
+      <sprite>sprites\spr_hud_cubeshard</sprite>
+      <sprite>sprites\spr_hud_anticube</sprite>
+      <sprite>sprites\spr_hud_key</sprite>
     </sprites>
+    <sprites name="Editor">
+      <sprite>sprites\spr_editor_cursor</sprite>
+      <sprite>sprites\spr_editor_grid</sprite>
+    </sprites>
+    <sprite>sprites\spr_shining</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -81,28 +91,41 @@
     <script>scripts\scr_save_level_dialog.gml</script>
     <script>scripts\scr_cubebit.gml</script>
     <script>scripts\scr_cubeshard.gml</script>
+    <script>scripts\scr_anticube.gml</script>
     <script>scripts\scr_resolucao.gml</script>
   </scripts>
   <objects name="objects">
-    <object>objects\obj_gomez</object>
-    <object>objects\obj_block</object>
-    <object>objects\obj_door</object>
-    <object>objects\obj_camera</object>
-    <object>objects\obj_camera_look</object>
-    <object>objects\obj_editor_camera</object>
-    <object>objects\obj_editor_camera_look</object>
-    <object>objects\obj_editor_cursor</object>
-    <object>objects\obj_editor_block</object>
-    <object>objects\obj_editor_gomez</object>
-    <object>objects\obj_editor_cubebit</object>
     <object>objects\obj_loader</object>
     <object>objects\obj_menu</object>
-    <object>objects\obj_cubebit</object>
-    <object>objects\obj_hud_cubebit</object>
-    <object>objects\obj_cubeshard_animation</object>
+    <objects name="Fase">
+      <object>objects\obj_gomez</object>
+      <object>objects\obj_camera</object>
+      <object>objects\obj_camera_look</object>
+      <object>objects\obj_block</object>
+      <object>objects\obj_door</object>
+      <object>objects\obj_cubebit</object>
+      <object>objects\obj_cubeshard</object>
+      <object>objects\obj_anticube</object>
+      <objects name="HUD">
+        <object>objects\obj_hud_cubebit</object>
+      </objects>
+      <objects name="Anima">
+        <object>objects\obj_cubeshard_anima</object>
+        <object>objects\obj_anticube_anima</object>
+      </objects>
+    </objects>
+    <objects name="Editor">
+      <object>objects\obj_editor_camera</object>
+      <object>objects\obj_editor_camera_look</object>
+      <object>objects\obj_editor_cursor</object>
+      <object>objects\obj_editor_block</object>
+      <object>objects\obj_editor_gomez</object>
+      <object>objects\obj_editor_cubebit</object>
+    </objects>
   </objects>
   <timelines name="timelines">
     <timeline>timelines\tl_cubeshard</timeline>
+    <timeline>timelines\tl_anticube</timeline>
   </timelines>
   <rooms name="rooms">
     <room>rooms\room_menu</room>

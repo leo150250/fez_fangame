@@ -80,7 +80,9 @@ pause=false;
 cubebit=0;
 som_cubebit=1;
 cubeshard=0;
+anticube=0;
 som_cubeshard=1;
+pause_cubeshard=false;
 
 ////////////////////////////////////////////////////////
 //Declaração de variáveis de fins estéticos (ou quase!):
@@ -193,10 +195,15 @@ vspeed=median(-3,vspeed,3);
 //Assim como ocorre com as variáveis hspeed e vspeed.
 if (pause==false) { z+=zspeed; }
 
+if (zspeed&gt;32) { room_restart(); }
+
 //Obtém a posição atual do jogador...
 posicao_xblock=x;
 posicao_yblock=y;
 posicao_zblock=z;
+posicao_xblock2=x;
+posicao_yblock2=y;
+posicao_zblock2=z;
 //E calcula a posição atual para que ela seja reduzida a um valor entre -8 e 8.
 for (i=posicao_xblock; i&gt;=0; i-=16) {
     posicao_xblock=i;
@@ -207,6 +214,15 @@ for (i=posicao_yblock; i&gt;=0; i-=16) {
 for (i=posicao_zblock; i&gt;=0; i-=16) {
     posicao_zblock=i;
 }
+for (i=posicao_xblock2; i&gt;=0; i-=16) {
+    posicao_xblock2=i;
+}
+for (i=posicao_yblock2; i&gt;=0; i-=16) {
+    posicao_yblock2=i;
+}
+for (i=posicao_zblock2; i&gt;=0; i-=16) {
+    posicao_zblock2=i;
+}
 //Quando isso acontecer, então a posição_block irá obter um cálculo da diferença entre o obj_gomez e a variável,
 //e acrescentará 8.
 //Isso fará com que o posicao_xblock/yblock/zblock peguem as coordenadas do bloco que está no meio
@@ -214,6 +230,9 @@ for (i=posicao_zblock; i&gt;=0; i-=16) {
 posicao_xblock=(obj_gomez.x-posicao_xblock)+8;
 posicao_yblock=(obj_gomez.y-posicao_yblock)+8;
 posicao_zblock=(obj_gomez.z-posicao_zblock)+8;
+posicao_xblock2=(obj_gomez.x-posicao_xblock2)+8;
+posicao_yblock2=(obj_gomez.y-posicao_yblock2)+8;
+posicao_zblock2=(obj_gomez.z-posicao_zblock2)+8;
 
 //Executa o script de checagem de colisão.
 if (pause==false) { scr_colisao(); }
@@ -228,7 +247,7 @@ y=round(y);
 if (armazena_view!=0) {
     obj_camera.direcao_view+=30;
 }
-if (pular&lt;=0) {
+if (pular&lt;=0) and (pause==false) {
     if (round(zspeed)&gt;0) {
         image_single=7;
     }
@@ -447,6 +466,7 @@ if (pause==false) {
 
 //Seta a cor do draw para branco (pois, pode ser que outro objeto defina outra cor, e aí o personagem vai ficar colorido de acordo, e isso não vai ser legal.)
 draw_set_color(c_white);
+draw_set_alpha(1);
 
 //A princípio, era para desativar a "transposição" de outras coisas na frente do personagem, mas não deu certo. Deixa aqui que deixa o código bonitinho.
 d3d_set_zwriteenable(false);
@@ -456,16 +476,33 @@ d3d_set_zwriteenable(false);
 //No caso, o personagem tem que estar SEMPRE virado para a direção da câmera.
 //GRAÇAS A DEUS (ALELUIA!) que o Game Maker tem a função lengthdir_x/y, pois evita eu ter que usar funções geométricas pra fazer essa treta,
 //com degtorad, sen, cos, tan e bla bla bla. No mais, ele só calcula a posição x e y que seria caso partisse de um ponto e fosse na direção da câmera+90 graus.
-if (direcao==1) { d3d_draw_wall(x+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z+32,x-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+if (direcao==1) {
+    d3d_draw_wall(x+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z+32,x-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1);
+    if (pause_cubeshard==true) {
+        if (obj_camera.direcao==0) { d3d_draw_wall(640+128+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z+32,640+128-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==90) { d3d_draw_wall(x+lengthdir_x(16,obj_camera.direcao_view-90),-128+lengthdir_y(16,obj_camera.direcao_view-90),z+32,x-lengthdir_x(16,obj_camera.direcao_view-90),-128-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==180) { d3d_draw_wall(-128+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z+32,-128-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==270) { d3d_draw_wall(x+lengthdir_x(16,obj_camera.direcao_view-90),480+128+lengthdir_y(16,obj_camera.direcao_view-90),z+32,x-lengthdir_x(16,obj_camera.direcao_view-90),480+128-lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+    }
+}
 //E, no caso de, se a direção estiver para a esquerda, só faz a mesma coisa de cima, mas com valores x e y invertidos, pra desenhar as sprites INVERTIDAS.
-if (direcao==-1) { d3d_draw_wall(x-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z+32,x+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+if (direcao==-1) {
+    d3d_draw_wall(x-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z+32,x+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1);
+    if (pause_cubeshard==true) {
+        if (obj_camera.direcao==0) { d3d_draw_wall(640+128-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z+32,640+128+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==90) { d3d_draw_wall(x-lengthdir_x(16,obj_camera.direcao_view-90),-128-lengthdir_y(16,obj_camera.direcao_view-90),z+32,x+lengthdir_x(16,obj_camera.direcao_view-90),-128+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==180) { d3d_draw_wall(-128-lengthdir_x(16,obj_camera.direcao_view-90),y-lengthdir_y(16,obj_camera.direcao_view-90),z+32,-128+lengthdir_x(16,obj_camera.direcao_view-90),y+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+        if (obj_camera.direcao==270) { d3d_draw_wall(x-lengthdir_x(16,obj_camera.direcao_view-90),480+128-lengthdir_y(16,obj_camera.direcao_view-90),z+32,x+lengthdir_x(16,obj_camera.direcao_view-90),480+128+lengthdir_y(16,obj_camera.direcao_view-90),z,sprite_get_texture(sprite_index,image_index),1,1); }
+    }
+}
 
 //Novamente, não sei por que isso ainda tá aqui se nem funciona.
 //Ah sim, é pra deixar o código bonitinho.
 d3d_set_zwriteenable(true);
 
 //DEBUG
-d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_block_test,28),1,1);
+d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_cubebit,0),1,1);
+d3d_draw_block(posicao_xblock2-1,posicao_yblock2-1,posicao_zblock2-1,posicao_xblock2+1,posicao_yblock2+1,posicao_zblock2+1,sprite_get_texture(mask_block,0),1,1);
 </string>
           </argument>
         </arguments>
