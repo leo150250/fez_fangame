@@ -13,6 +13,23 @@ Lista de afazeres:
 Diário de Bordo
 ===============
 
+16 de Junho de 2014
+-------------------
+Esse “dia” começou, na verdade, no dia 14, mas como não tive muito tempo pra fazer quase nada, tô juntando ele com o dia 15 e 16, que somados dá praticamente um dia!
+
+Comecei fazendo a animação do cubo, quando é coletado. Antes, o personagem apenas pulava enquanto o som era tocado. Agora, o cubo rotatório é exibido em cima dele, juntamente com o brilho e etc etc etc, bem fiel ao jogo original, apesar de o cubo estar um pouquinho diferente.
+
+Aproveitei isto e fiz agora os anticubos! Será que você consegue encontrar os 2 da fase de teste? (Tá muito fácil, nem tem enigmas ainda...)
+
+O editor ainda não tem suporte para os cubos, e estou planejando uma HUD melhor para o editor, para não ter que ir colocando tudo através de “atalhos”!
+
+E, infelizmente, foi detectada uma certa lentidão no desempenho. Não é de novo a questão da velocidade da room, é alguma outra coisa, que está processando demais e está deixando o jogo um pouco lento... Se alguém identificar o que pode ser, favor dar um pull request, pl0x!11!
+
+Executável 0.0.0.3 no ar!
+https://github.com/leo150250/fez_fangame/blob/master/.EXE-builds/Fez4ever-Default-0.0.0.3.zip
+
+P.S.: Vou ficar alguns dias sem postar, pois chegou um baita dum feriadão aqui no serviço, e não tenho net em casa. flwzzz
+
 13 de Junho de 2014
 -------------------
 
