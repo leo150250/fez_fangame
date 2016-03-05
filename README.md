@@ -18,14 +18,7 @@ Diário de Bordo
 ------------------
 Depois de quase 2 anos com o projeto desativado, resolvi voltar a mexer nele. Até que não programei essa coisa tãããããooo mal assim. Comentei tanto o código que identifiquei alguns bugs mas, enquanto corrigi alguns, outros apareceram, como a detecção de profundidade. É fato que, antes, mesmo se o Gomez estava escondido atrás de uma parede, se tivesse uma plataforma na frente dela, ele "saltava" do fundo e vinha para frente, arruinando boa parte do layout da fase. Isso foi corrigido mas, em contra-partida, agora tá sendo difícil fazer ele se "situar" na profundidade quando não há nada o impedindo, isto é, visualmente, a plataforma é possível de ser alcançada, mas por estar em um plano à frente de onde o Gomez pulou, ele não a detecta até que não haja nada o impedindo. Isso pode ser observado na plataforma que possui a porta... Se você conseguir chegar até à porta, é claro... Com o bug, isso não dá mais certo!
 
-Em contrapartida, foram acrescentadas algumas coisas, tais como o TETRIS CODE! Agora, na fase de teste, há um tetriscode, gerado pelo obj_tetriscode, e ele recebe uma string onde:
-^ - Acima
-< - Esquerda
-v - Abaixo
-> - Direita
-[ - Girar esquerda
-] - Girar direita
-O - Pulo (letra "O" maiúscula)
+Em contrapartida, foram acrescentadas algumas coisas, tais como o TETRIS CODE! Agora, na fase de teste, há um tetriscode, gerado pelo obj_tetriscode, e ele recebe uma string que recebe "^<v>[]O" que significa, respectivamente, acima, esquerda, abaixo, direita, girar esquerda, girar direita e pulo.
 O próprio objeto faz a exibição do tetris code, e também verifica se a sequência está sendo pressionada. Por hora, ele gera um anticubo logo mais acima dele, mas futuramente pretendo "linkar" esse objeto com outros, para o tetriscode ser capaz de abrir portas, acionar mecanismos aleatórios, etc.
 
 Também, houveram outras leves mudanças:
