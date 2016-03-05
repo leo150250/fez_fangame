@@ -31,6 +31,7 @@
 //Inicia o módulo 3D e desativa quaisquer vesquícios de iluminação.
 d3d_start();
 d3d_set_lighting(false);
+draw_set_alpha_test(true);
 
 //A variável direção é a variável absoluta da direção que o obj_camera está.
 //(0 = direita da room; 90 = topo da room; 180 = esquerda da room; 270 = base da room)
@@ -335,7 +336,7 @@ draw_rectangle_color(0,0,view_wview[0],view_hview[0],c_aqua,c_aqua,c_aqua,c_aqua
 //Essa projeção que é o truque. O lengthdir_x/y faz um cálculo para que a câmera esteja sempre em um círculo em volta do personagem,
 //de raio de acordo com a variável distancia, na posição do direcao_view.
 //Ainda preciso corrigir a taxa de aspecto do 3D (aquele 640/480 lá no final).
-d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj_camera_look.y+lengthdir_y(distancia,direcao_view),obj_camera_look.z+distorcao,obj_camera_look.x,obj_camera_look.y,obj_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/2),(distancia*2));
+d3d_set_projection_ext(obj_camera_look.x+lengthdir_x(distancia,direcao_view),obj_camera_look.y+lengthdir_y(distancia,direcao_view),obj_camera_look.z+distorcao,obj_camera_look.x,obj_camera_look.y,obj_camera_look.z,0,0,1,visao,window_get_width()/window_get_height(),(distancia/2),(distancia*2));
 //E depois, uma tentativa bem-sucedida de fazer o "negócio" de água, que nada mais é do que a água, propriamente dita:
 d3d_draw_wall(1280,-512,4,1280,1024,-252,sprite_get_texture(spr_agua,agua),6,1);
 d3d_draw_wall(-512,-512,4,1280,-512,-252,sprite_get_texture(spr_agua,agua),7,1);

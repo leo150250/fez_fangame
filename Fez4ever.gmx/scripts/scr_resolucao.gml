@@ -15,7 +15,7 @@ if (argument0==true) {
     view_visible[0]=false;
     window_set_fullscreen(false);
     display_reset(4,true);
-    window_set_size(display_get_width()/3,display_get_height()/3);
+    window_set_size(display_get_width()/2,display_get_height()/2);
     window_center();
 } else {
     display_reset(4,true);
@@ -31,7 +31,7 @@ if (argument0==true) {
     view_yport[0]=0;
     view_wport[0]=display_get_width();
     view_hport[0]=display_get_height();
-    display_set_gui_size(round(aspecto*display_get_height()),display_get_height());
+    display_set_gui_size(display_get_width(),display_get_height());
     window_set_fullscreen(true);
     view_visible[0]=true;
 }

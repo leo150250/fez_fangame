@@ -1,17 +1,42 @@
-Fez (Fan-game)
+﻿Fez (Fan-game)
 ==============
 
 Um pequeno fan-game do Fez, criado por Phil Fish, usando o GameMaker: Studio para recriar o universo do jogo.
 
-A versão utilizada para o desenvolvimento está sendo o GameMaker: Studio Professional Early Access 1.99.
+A versão utilizada para o desenvolvimento está sendo o GameMaker: Studio Standard Edition (v1.4.1749).
 
 Todas as sprites foram ripadas do jogo original, mas só utilizei o Google pra isso. E o código foi desenvolvido do zero, sem códigos adicionais... E é melhor que continue assim!
 
 Lista de afazeres:
 * Precisamos de todas as sprites do Gomez e dos blocos do jogo original!
+* Melhorar alguns códigos para evitar superprocessamento, como o de detecção de profundidade.
 
 Diário de Bordo
 ===============
+
+3 de Março de 2016
+------------------
+Depois de quase 2 anos com o projeto desativado, resolvi voltar a mexer nele. Até que não programei essa coisa tãããããooo mal assim. Comentei tanto o código que identifiquei alguns bugs mas, enquanto corrigi alguns, outros apareceram, como a detecção de profundidade. É fato que, antes, mesmo se o Gomez estava escondido atrás de uma parede, se tivesse uma plataforma na frente dela, ele "saltava" do fundo e vinha para frente, arruinando boa parte do layout da fase. Isso foi corrigido mas, em contra-partida, agora tá sendo difícil fazer ele se "situar" na profundidade quando não há nada o impedindo, isto é, visualmente, a plataforma é possível de ser alcançada, mas por estar em um plano à frente de onde o Gomez pulou, ele não a detecta até que não haja nada o impedindo. Isso pode ser observado na plataforma que possui a porta... Se você conseguir chegar até à porta, é claro... Com o bug, isso não dá mais certo!
+
+Em contrapartida, foram acrescentadas algumas coisas, tais como o TETRIS CODE! Agora, na fase de teste, há um tetriscode, gerado pelo obj_tetriscode, e ele recebe uma string onde:
+^ - Acima
+< - Esquerda
+v - Abaixo
+> - Direita
+[ - Girar esquerda
+] - Girar direita
+O - Pulo (letra "O" maiúscula)
+O próprio objeto faz a exibição do tetris code, e também verifica se a sequência está sendo pressionada. Por hora, ele gera um anticubo logo mais acima dele, mas futuramente pretendo "linkar" esse objeto com outros, para o tetriscode ser capaz de abrir portas, acionar mecanismos aleatórios, etc.
+
+Também, houveram outras leves mudanças:
+* Agora o anticube tem animação de entrada, muito semelhante à do jogo original;
+* O depth do efeito dos raios foi alterado, não causando mais nenhum "efeito colateral" que possa fazer sumir outros objetos;
+* A textura da água foi levemente alterada;
+* Alteração da resolução nativa para 1024x768, e ajustado o sistema de escala para o máximo possível, não causando mais nenhuma "borda preta" nas laterais. Como o jogo utiliza o cálculo do tamanho da janela do jogo para renderizar o aspecto do 3D, isso até ajudou;
+* O anticube tem som durante a animação de entrada;
+* O efeito de giro dos cubos e anticubos foi invertido quando o cubo fica lento, assim como no original.
+
+De próximo, tenho que tentar resolver esse bug da profundidade. Não dá pra continuar o desenvolvimento com esse bug. A sorte é que consegui alguém para me auxiliar no projeto, o Sérgio (@cvdf)!
 
 16 de Junho de 2014
 -------------------

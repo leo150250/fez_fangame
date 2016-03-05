@@ -25,9 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>direction=random(360);
-speed=random(32);
-for (i=0; i&lt;=50; i++) {
+            <string>direction=225+random(180);
+speed=8+random(16);
+for (i=0; i&lt;=25; i++) {
     trilhax[i]=-1;
     trilhay[i]=-1;
 }
@@ -59,18 +59,18 @@ if (vspeed&lt;0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>motion_add(point_direction(x,y,-1024,-1024),1);
-if (speed&gt;8) {
+            <string>motion_add(point_direction(x,y,-1024,-1024),0.5);
+if (speed&gt;16) {
     speed-=2;
 }
-if (x&lt;-512) or (y&lt;-512) {
+if (x&lt;-256) or (y&lt;-256) {
     if (obj_gomez.cubebit&gt;=8) {
         obj_gomez.cubebit-=8;
         scr_cubeshard();
     }
     instance_destroy();
 }
-for (i=50; i&gt;=0; i--;) {
+for (i=25; i&gt;=0; i--;) {
     if (i&gt;0) {
         trilhax[i]=trilhax[i-1];
         trilhay[i]=trilhay[i-1];
@@ -105,8 +105,8 @@ for (i=50; i&gt;=0; i--;) {
 draw_set_color(c_white);
 draw_sprite_ext(spr_cubebit,0,x,y,2,2,x,c_white,1);
 draw_set_color(c_yellow);
-for (i=0; i&lt;=50; i++) {
-    draw_set_alpha(1-(i/50));
+for (i=0; i&lt;=25; i++) {
+    draw_set_alpha(1-(i/25));
     if (i==0) {
         if (trilhax[i]&gt;-1) and (trilhay[i]&gt;-1) {
             draw_line_width(x,y,trilhax[0],trilhay[0],20);

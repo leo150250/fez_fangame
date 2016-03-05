@@ -3,7 +3,7 @@
   <spriteName>spr_anticube</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -56,10 +56,10 @@ shining_rays=0;
             <kind>1</kind>
             <string>rotacao+=spin;
 if (spin!=20) {
-    if (spin&gt;0.2) {
+    if (spin&gt;-0.5) {
         spin-=1;
     } else {
-        spin=0.2;
+        spin=-0.5;
     }
 }
 if (fade&lt;fade_target) { fade+=0.1; }

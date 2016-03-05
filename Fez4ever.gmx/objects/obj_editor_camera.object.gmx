@@ -30,6 +30,7 @@
 //Inicia o 3D e elimina qualquer vesquício de iluminação:
 d3d_start();
 d3d_set_lighting(false);
+draw_set_alpha_test(true);
 
 //Esse também tem o direcao e o direcao_view, mas esses são em 15º, pra poder ter uma visão melhor.
 direcao=0;
@@ -44,6 +45,36 @@ distancia=128;
 texturas_offset=0;
 
 scr_resolucao(false);
+
+mdl_gaiola=d3d_model_create();
+d3d_model_primitive_begin(mdl_gaiola,pr_linelist);
+for (i=0; i&lt;=1024; i+=16) {
+    d3d_model_vertex_colour(mdl_gaiola,i,0,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,1024,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,i,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,i,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,0,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,1024,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,i,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,i,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,0,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,0,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,0,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,0,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,1024,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,i,1024,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,1024,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,1024,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,i,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,i,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,0,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,0,1024,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,i,0,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,i,1024,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,0,i,c_black,0.5);
+    d3d_model_vertex_colour(mdl_gaiola,1024,1024,i,c_black,0.5);
+}
+d3d_model_primitive_end(mdl_gaiola);
 </string>
           </argument>
         </arguments>
@@ -121,10 +152,10 @@ draw_set_color(c_gray);
 draw_rectangle(display_get_gui_width()-192+8,8,display_get_gui_width()-8,184,true);
 if (direcao==0) {
     draw_set_color(c_ltgray);
-    preview_x1=clamp((obj_editor_cursor.y-80)/16,0,30);
-    preview_x2=clamp((obj_editor_cursor.y+80)/16,0,30);
-    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
-    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    preview_x1=clamp((obj_editor_cursor.y-80)/16,0,64);
+    preview_x2=clamp((obj_editor_cursor.y+80)/16,0,64);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,64);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,64);
     for (i=preview_x1; i&lt;=preview_x2; i++) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_0[i,j]!=-1) {
@@ -140,10 +171,10 @@ if (direcao==0) {
 }
 if (direcao==90) {
     draw_set_color(c_white);
-    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,40);
-    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,40);
-    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
-    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,64);
+    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,64);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,64);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,64);
     for (i=preview_x1; i&lt;=preview_x2; i++) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_90[i,j]!=-1) {
@@ -159,10 +190,10 @@ if (direcao==90) {
 }
 if (direcao==180) {
     draw_set_color(c_ltgray);
-    preview_x1=clamp((obj_editor_cursor.y-80)/16,0,30);
-    preview_x2=clamp((obj_editor_cursor.y+80)/16,0,30);
-    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
-    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    preview_x1=clamp((obj_editor_cursor.y-80)/16,0,64);
+    preview_x2=clamp((obj_editor_cursor.y+80)/16,0,64);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,64);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,64);
     for (i=preview_x1; i&lt;=preview_x2; i++) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_180[i,j]!=-1) {
@@ -178,10 +209,10 @@ if (direcao==180) {
 }
 if (direcao==270) {
     draw_set_color(c_gray);
-    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,40);
-    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,40);
-    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,35);
-    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,35);
+    preview_x1=clamp((obj_editor_cursor.x-80)/16,0,64);
+    preview_x2=clamp((obj_editor_cursor.x+80)/16,0,64);
+    preview_y1=clamp((obj_editor_cursor.z-80)/16,0,64);
+    preview_y2=clamp((obj_editor_cursor.z+80)/16,0,64);
     for (i=preview_x1; i&lt;=preview_x2; i++) {
         for (j=preview_y1; j&lt;=preview_y2; j++) {
             if (obj_editor_cursor.matriz_desenho_270[i,j]!=-1) {
@@ -253,15 +284,19 @@ draw_set_color(c_white);
 //~~~~void~~~~
 //
 //E depois, fazemos a projeção do mundo 3D.
-d3d_set_projection_ext(obj_editor_camera_look.x+8+lengthdir_x(distancia,direcao_view),obj_editor_camera_look.y+8+lengthdir_y(distancia,direcao_view),obj_editor_camera_look.z+distancia,obj_editor_camera_look.x+8,obj_editor_camera_look.y+8,obj_editor_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/2),(distancia*4));
+d3d_set_projection_ext(obj_editor_camera_look.x+8+lengthdir_x(distancia,direcao_view),obj_editor_camera_look.y+8+lengthdir_y(distancia,direcao_view),obj_editor_camera_look.z+distancia,obj_editor_camera_look.x+8,obj_editor_camera_look.y+8,obj_editor_camera_look.z,0,0,1,visao,view_wport[0]/view_hport[0],(distancia/4),(distancia*8));
 
 //E depois, renderiza uma gaiola, pro usuário saber quais são os limites da zoeira.
-d3d_draw_floor(0,0,0,640,480,0,sprite_get_texture(spr_editor_grid,0),40,30);
-d3d_draw_wall(0,0,0,640,0,560,sprite_get_texture(spr_editor_grid,0),40,35);
-d3d_draw_wall(640,0,0,640,480,560,sprite_get_texture(spr_editor_grid,0),30,35);
-d3d_draw_wall(640,480,0,0,480,560,sprite_get_texture(spr_editor_grid,0),40,35);
-d3d_draw_wall(0,480,0,0,0,560,sprite_get_texture(spr_editor_grid,0),30,35);
-d3d_draw_floor(0,0,560,640,480,560,sprite_get_texture(spr_editor_grid,0),40,30);
+//Anteriormente, a gaiola era 640x480x560 (lxaxc). Agora é 1024x1024x1024.
+//Antes, a gaiola era porcamente feita com textura. Agora é com linhas mesmo.
+d3d_model_draw(mdl_gaiola,0,0,0,-1);
+/*
+d3d_draw_floor(0,0,0,1024,1024,0,sprite_get_texture(spr_editor_grid,0),40,30);
+d3d_draw_wall(0,0,0,1024,0,560,sprite_get_texture(spr_editor_grid,0),40,35);
+d3d_draw_wall(1024,0,0,1024,1024,1024,sprite_get_texture(spr_editor_grid,0),30,35);
+d3d_draw_wall(1024,1024,0,0,1024,1024,sprite_get_texture(spr_editor_grid,0),40,35);
+d3d_draw_wall(0,1024,0,0,0,1024,sprite_get_texture(spr_editor_grid,0),30,35);
+d3d_draw_floor(0,0,1024,640,1024,1024,sprite_get_texture(spr_editor_grid,0),40,30);*/
 </string>
           </argument>
         </arguments>

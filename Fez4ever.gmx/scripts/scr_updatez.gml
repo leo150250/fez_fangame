@@ -1,6 +1,7 @@
 //Código de atualização da profundidade do personagem em relação a câmera
 
 //Aqui o pau comeu solto, com azeitonas pretas em cream cheese e picles ao molho barbecue.
+//[TODO]Acho que vai ser até mais fácil tentar criar um código mais enxuto, mais prático do que tentar fazer manutenção nessa coisa.
 
 //Se o Gomez tiver autorização pra pular, então não há por que atualizar a profundidade, pois ele já está em um chão.
 //MAS, somente se no personagem estiver definido para não forçar a atualização da profundidade.
@@ -13,6 +14,8 @@ else {
     atualizar_profundidade=false;
     //Grava o atual_z com o valor do anterior_z;
     //Eu acho que isso tá invertido...
+    //Realmente, está invertido, mas a atualização da posição ta bugando quando desinverto-o, fazendo o Gomez cair mesmo se há chão embaixo dele.
+    //Preciso estudar melhor o que raios aconteceu aqui...
     atual_z=anterior_z;
     //Agora, conforme a direção da câmera, as funções abaixo fazem o seguinte:
     //Pega-se a posição que o gomez está e vai testando profundidade por profundidade (de 16 em 16),
@@ -26,8 +29,11 @@ else {
     if (obj_camera.direcao==0) {
         profundidade_minima=0;
         bloqueio=false;
-        for (i=640; i>=0; i-=16) {
+        for (i=1024; i>=0; i-=16) {
             with (obj_block) {
+                if (y==other.posicao_yblock-8) and (z==other.posicao_zblock-8) and (x>other.posicao_xblock-8) {
+                    other.bloqueio=true;
+                }
                 if (y==other.posicao_yblock-8) and (x==other.i) {
                     if (z==other.posicao_zblock-24)
                     and (lado_topo>-1)
@@ -47,10 +53,13 @@ else {
         }
     }
     if (obj_camera.direcao==90) {
-        profundidade_minima=480;
+        profundidade_minima=1024;
         bloqueio=false;
-        for (i=0; i<=480; i+=16) {
+        for (i=0; i<=1024; i+=16) {
             with (obj_block) {
+                if (x==other.posicao_xblock-8) and (z==other.posicao_zblock-8) and (y<other.posicao_yblock-8) {
+                    other.bloqueio=true;
+                }
                 if (x==other.posicao_xblock-8) and (y==other.i) {
                     if (z==other.posicao_zblock-24)
                     and (lado_topo>-1)
@@ -70,10 +79,13 @@ else {
         }
     }
     if (obj_camera.direcao==180) {
-        profundidade_minima=640;
+        profundidade_minima=1024;
         bloqueio=false;
-        for (i=0; i<=640; i+=16) {
+        for (i=0; i<=1024; i+=16) {
             with (obj_block) {
+                if (y==other.posicao_yblock-8) and (z==other.posicao_zblock-8) and (x<other.posicao_xblock-8) {
+                    other.bloqueio=true;
+                }
                 if (y==other.posicao_yblock-8) and (x==other.i) {
                     if (z==other.posicao_zblock-24)
                     and (lado_topo>-1)
@@ -95,8 +107,11 @@ else {
     if (obj_camera.direcao==270) {
         profundidade_minima=0;
         bloqueio=false;
-        for (i=480; i>=0; i-=16) {
+        for (i=1024; i>=0; i-=16) {
             with (obj_block) {
+                if (x==other.posicao_xblock-8) and (z==other.posicao_zblock-8) and (y>other.posicao_yblock-8) {
+                    other.bloqueio=true;
+                }
                 if (x==other.posicao_xblock-8) and (y==other.i) {
                     if (z==other.posicao_zblock-24)
                     and (lado_topo>-1)

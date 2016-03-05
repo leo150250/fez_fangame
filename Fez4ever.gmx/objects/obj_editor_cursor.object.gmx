@@ -27,23 +27,23 @@
             <kind>1</kind>
             <string>z=0;
 
-for (i=0; i&lt;=30; i++) {
-    for (j=0; j&lt;=35; j++) {
+for (i=0; i&lt;=64; i++) {
+    for (j=0; j&lt;=64; j++) {
         matriz_desenho_0[i,j]=-1;
         matriz_desenho_180[i,j]=-1;
         matriz_textura_0[i,j]=-1;
         matriz_textura_180[i,j]=-1;
         matriz_profundidade_0[i,j]=-1;
-        matriz_profundidade_180[i,j]=641;
+        matriz_profundidade_180[i,j]=1025;
     }
 }
-for (i=0; i&lt;=40; i++) {
-    for (j=0; j&lt;=35; j++) {
+for (i=0; i&lt;=64; i++) {
+    for (j=0; j&lt;=64; j++) {
         matriz_desenho_90[i,j]=-1;
         matriz_desenho_270[i,j]=-1;
         matriz_textura_90[i,j]=-1;
         matriz_textura_270[i,j]=-1;
-        matriz_profundidade_90[i,j]=481;
+        matriz_profundidade_90[i,j]=1025;
         matriz_profundidade_270[i,j]=-1;
     }
 }
@@ -111,9 +111,9 @@ scr_resolucao(false);
             <string>//Código a ser executado a cada frame:
 
 //Limitar as variáveis para não vazarem pra fora do mapa:
-x=median(0,x,640-16);
-y=median(0,y,480-16);
-z=median(0,z,560-16);
+x=median(0,x,1024-16);
+y=median(0,y,1024-16);
+z=median(0,z,1024-16);
 </string>
           </argument>
         </arguments>

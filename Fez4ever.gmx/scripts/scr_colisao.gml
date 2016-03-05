@@ -8,6 +8,9 @@
 //Seta a variável zspeed para -0.2 relativos, e negativeia o pulo dele, pra ele não pular no ar.
 //E, claro, atualiza a profundidade do personagem. Vai que o "chão" está em outra profundidade? Não queremos
 //que o Gomez atravesse o chão sem mais nem menos, né?
+//Acabei de ver que esse código é o CAOS em formato de código onde, em uma fase grande, vai dar uma sobrecarga de processamento gigante.
+//[TODO]Preciso estudar uma maneira mais fácil e mais prática de fazer esse código sem fazer ele passar por TODOS os blocos da fase,
+//até mesmo aqueles que NÃO ESTÃO em colisão com o Gomez.
 chao_ok=false;
 with (obj_block) {
     if (x==other.posicao_xblock-8) and (y==other.posicao_yblock-8) {

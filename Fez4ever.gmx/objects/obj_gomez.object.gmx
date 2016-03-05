@@ -3,7 +3,7 @@
   <spriteName>spr_gomez</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>mask_block</maskName>
@@ -501,8 +501,8 @@ if (direcao==-1) {
 d3d_set_zwriteenable(true);
 
 //DEBUG
-d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_cubebit,0),1,1);
-d3d_draw_block(posicao_xblock2-1,posicao_yblock2-1,posicao_zblock2-1,posicao_xblock2+1,posicao_yblock2+1,posicao_zblock2+1,sprite_get_texture(mask_block,0),1,1);
+//d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_cubebit,0),1,1);
+//d3d_draw_block(posicao_xblock2-1,posicao_yblock2-1,posicao_zblock2-1,posicao_xblock2+1,posicao_yblock2+1,posicao_zblock2+1,sprite_get_texture(mask_block,0),1,1);
 </string>
           </argument>
         </arguments>
