@@ -9,10 +9,22 @@ Todas as sprites foram ripadas do jogo original, mas só utilizei o Google pra i
 
 Lista de afazeres:
 * Precisamos de todas as sprites do Gomez e dos blocos do jogo original!
-* Melhorar alguns códigos para evitar superprocessamento, como o de detecção de profundidade.
+* Corrigir 99% dos bugs de detecção de profundidade!
 
 Diário de Bordo
 ===============
+
+8 de Março de 2016
+------------------
+O código inteiro de detecção de profundidade foi refeito. Agora está mais eficiente, além de corrigir alguns bugs de profundidade... Enquanto criou outros, mas já está no caminho certo.
+Houve atualização na maneira como é computado o posicao_zblock do Gomez, onde a maneira antiga causava certos erros de cálculo e era difícil de entender, visando que ele computava tomando como medida o MEIO do personagem. Agora, está tomando como medida a base do personagem, que é a principal interessada nessa variável.
+Além disso, há variáveis novas de checagem de profundidade ao Gomez, pois o novo código faz com que ele fique o mais próximo possível da câmera (se não tiver obstáculos!) quando se está em queda-livre. Isso faz com que, caso o jogador GIRE a câmera, a profundidade do Gomez tem que voltar para o que era, senão ele acabará girando no eixo mais próximo possível da câmera, o que não era legal de ver! O código está funcionando direitinho, sem "efeitos colaterais".
+
+No entanto...
+
+Ainda há alguns bugs de profundidade... O mais visível acontece em teste_profundidade.f4e, onde uma das plataformas não consegue ser "alcançada"... Além de outros bugs que surgiram nas outras fases! grrrr
+
+Mas tenho fé de que agora serão fáceis de serem corrigidos... espero... É interessante fazer manutenção nesse código depois de tanto tempo, mas é difícil só uma cabeça pensar nesse código! HELP WANTED!!!
 
 3 de Março de 2016
 ------------------
