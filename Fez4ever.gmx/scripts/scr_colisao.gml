@@ -14,14 +14,22 @@
 chao_ok=false;
 with (obj_block) {
     if (x==other.posicao_xblock-8) and (y==other.posicao_yblock-8) {
-        if (lado_topo>-1)
-        and (other.z<=z+16)
-        and (other.z>z+15+other.zspeed) {
-            other.zspeed=0;
-            other.z=z+16;
-            other.pular=2;
-            other.chao_ok=true;
-            other.id_chao=id;
+        if (lado_topo>-1) {
+            //if (other.z<=z+16)
+            //and (other.pular>=0) {
+            //    other.z=z+16;
+            //}
+            if (other.z<=z+16)
+            and (other.z>=z+15+other.zspeed) {
+                other.zspeed=0;
+                other.z=z+16;
+                other.pular=2;
+                other.chao_ok=true;
+                other.id_chao=id;
+                other.refazer_profundidade=false;
+                other.girox=other.x;
+                other.giroy=other.y;
+            }
         }
     }
 }

@@ -53,28 +53,28 @@ z=0;
 if (rotacao&gt;360) { rotacao-=360; }
 if (obj_camera.direcao==0) {
     if (y==obj_gomez.posicao_yblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
+    and (z==obj_gomez.posicao_zblock) {
         scr_cubeshard();
         instance_destroy();
     }
 }
 if (obj_camera.direcao==90) {
     if (x==obj_gomez.posicao_xblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
+    and (z==obj_gomez.posicao_zblock) {
         scr_cubeshard();
         instance_destroy();
     }
 }
 if (obj_camera.direcao==180) {
     if (y==obj_gomez.posicao_yblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
+    and (z==obj_gomez.posicao_zblock) {
         scr_cubeshard();
         instance_destroy();
     }
 }
 if (obj_camera.direcao==270) {
     if (x==obj_gomez.posicao_xblock-8)
-    and (z==obj_gomez.posicao_zblock-8) {
+    and (z==obj_gomez.posicao_zblock) {
         scr_cubeshard();
         instance_destroy();
     }

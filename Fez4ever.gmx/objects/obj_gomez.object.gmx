@@ -84,6 +84,13 @@ anticube=0;
 som_cubeshard=1;
 pause_cubeshard=false;
 
+//As três variáveis abaixo são para desfazer o cálculo de profundidade máxima do personagem caso a câmera gire enquanto ele está no ar.
+//Isso se deve pois o novo script de calcular profundidade altera as posições x e y do personagem quando ele está no ar, e sem eles, caso a câmera gire, o
+//eixo do personagem não vai ficar certo.
+refazer_profundidade=false;
+girox=x;
+giroy=y;
+
 ////////////////////////////////////////////////////////
 //Declaração de variáveis de fins estéticos (ou quase!):
 
@@ -200,10 +207,10 @@ if (zspeed&gt;32) { room_restart(); }
 //Obtém a posição atual do jogador...
 posicao_xblock=x;
 posicao_yblock=y;
-posicao_zblock=z;
+posicao_zblock=z+8;
 posicao_xblock2=x;
 posicao_yblock2=y;
-posicao_zblock2=z;
+posicao_zblock2=z+8;
 //E calcula a posição atual para que ela seja reduzida a um valor entre -8 e 8.
 for (i=posicao_xblock; i&gt;=0; i-=16) {
     posicao_xblock=i;
@@ -445,6 +452,33 @@ if (pause==false) {
         </arguments>
       </action>
     </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (chao_ok==false) {
+    draw_set_color(c_red);
+    draw_set_alpha(1);
+    draw_rectangle(64,64,128,128,false);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -501,8 +535,9 @@ if (direcao==-1) {
 d3d_set_zwriteenable(true);
 
 //DEBUG
-//d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_cubebit,0),1,1);
-//d3d_draw_block(posicao_xblock2-1,posicao_yblock2-1,posicao_zblock2-1,posicao_xblock2+1,posicao_yblock2+1,posicao_zblock2+1,sprite_get_texture(mask_block,0),1,1);
+d3d_draw_block(posicao_xblock-2,posicao_yblock-2,posicao_zblock-2,posicao_xblock+2,posicao_yblock+2,posicao_zblock+2,sprite_get_texture(spr_cubebit,0),1,1);
+d3d_draw_block(posicao_xblock2-1,posicao_yblock2-1,posicao_zblock2-1,posicao_xblock2+1,posicao_yblock2+1,posicao_zblock2+1,sprite_get_texture(mask_block,0),1,1);
+//d3d_draw_wall(-32,posicao_yblock,posicao_zblock,-32,posicao_yblock+8,posicao_zblock+8,sprite_get_texture(spr_cubebit,0),1,1);
 </string>
           </argument>
         </arguments>

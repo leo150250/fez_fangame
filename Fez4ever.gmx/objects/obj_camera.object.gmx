@@ -452,7 +452,14 @@ distancia-=1000;
 if (obj_gomez.pause==false) {
     direcao-=90;
     audio_play_sound(snd_rotate_right,1,false);
-    
+    if (direcao==90) or (direcao==-90) {
+        obj_gomez.x=obj_gomez.girox;
+        obj_camera_look.x=obj_gomez.x;
+    }
+    if (direcao==180) or (direcao==0) {
+        obj_gomez.y=obj_gomez.giroy;
+        obj_camera_look.y=obj_gomez.y;
+    }
     //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.
     obj_gomez.pause=true;
     obj_gomez.alarm[0]=20;
@@ -512,6 +519,14 @@ visao-=0.001;
 //Altera a direção da câmera em +90, girando-a no sentido horário, de acordo com a visão do mapa.
 if (obj_gomez.pause==false) {
     direcao+=90;
+    if (direcao==90) or (direcao==270) {
+        obj_gomez.x=obj_gomez.girox;
+        obj_camera_look.x=obj_gomez.x;
+    }
+    if (direcao==180) or (direcao==360) {
+        obj_gomez.y=obj_gomez.giroy;
+        obj_camera_look.y=obj_gomez.y;
+    }
     audio_play_sound(snd_rotate_left,1,false);
     
     //E define para que, se o Gomez se mover nessa nova câmera, deve-se atualizar a profundidade.

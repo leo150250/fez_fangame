@@ -97,6 +97,7 @@
     <script>scripts\scr_cubeshard.gml</script>
     <script>scripts\scr_anticube.gml</script>
     <script>scripts\scr_resolucao.gml</script>
+    <script>scripts\scr_checkplat.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_loader</object>

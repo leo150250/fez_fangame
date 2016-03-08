@@ -7,8 +7,131 @@
 //MAS, somente se no personagem estiver definido para não forçar a atualização da profundidade.
 if (pular>0) and (argument0==false) {
     id_chao=instance_position(obj_gomez.x,obj_gomez.y,obj_block);
+    refazer_profundidade=false;
 }
 //DO CONTRÁRIO, então deve-se atualizar a "posição z" dele, ora bolas!
+//Vamos tentar refazer esse código pela 3ª vez... Acho que agora vai dar certo...
+//Acho que agora deu certo, de maneira BEEEMM mais aprimorada!
+else {
+    //Inicialmente, não há "bloqueios"
+    bloqueio=false;
+    //Se a câmera estiver na direção 0 (Direita):
+    if (obj_camera.direcao==0) {
+        //A princípio, a profundidade mais funda é a que está "além do arco-íris"
+        profundidade_eleita=-1;
+        //Para cada bloco, verifica-se então se ele não está na frente absoluta do Gomez. Se estiver, vai bloquear a atualização de profundidade.
+        with (obj_block) {
+            if (y==other.posicao_yblock-8) and (z==other.posicao_zblock) and (x>other.posicao_xblock-8) {
+                other.bloqueio=true;
+            }
+        }
+        //Se realmente não estiver bloqueado, então ele fica o mais próximo possível da câmera.
+        if (bloqueio==false) {
+            if (refazer_profundidade==false) {
+                girox=x;
+                giroy=y;
+                refazer_profundidade=true;
+            }
+            x=1024+8;
+        }
+        //Depois, para cada bloco, verifica-se então se...
+        with (obj_block) {
+            //...este bloco tem todas as qualificações para suportar o Gomez.
+            if (y==other.posicao_yblock-8)
+            and (x>other.profundidade_eleita) 
+            //As duas funções acima estão fora do script abaixo pois elas alteram de acordo com a direção da câmera, enquanto as que estão dentro do script sempre serão checadas.
+            and (scr_checkplat(self)==true) {
+                other.profundidade_eleita=x;
+            }
+        }
+        //Se realmente não estava bloqueado, e houve uma profundidade digna de suportar o Gomez, move ele então para lá.
+        if (bloqueio==false) and (profundidade_eleita>-1) {
+            x=profundidade_eleita+8;
+        }
+    }
+    //A mesma coisa acima se repete na direção 90, 180 e 270:
+    if (obj_camera.direcao==90) {
+        profundidade_eleita=1025;
+        with (obj_block) {
+            if (x==other.posicao_xblock-8) and (z==other.posicao_zblock) and (y<other.posicao_yblock-8) {
+                other.bloqueio=true;
+            }
+        }
+        if (bloqueio==false) {
+            if (refazer_profundidade==false) {
+                girox=x;
+                giroy=y;
+                refazer_profundidade=true;
+            }
+            y=0+8;
+        }
+        with (obj_block) {
+            if (x==other.posicao_xblock-8)
+            and (y<other.profundidade_eleita) 
+            and (scr_checkplat(self)==true) {
+                other.profundidade_eleita=y;
+            }
+        }
+        if (bloqueio==false) and (profundidade_eleita<1025) {
+            y=profundidade_eleita+8;
+        }
+    }
+    if (obj_camera.direcao==180) {
+        profundidade_eleita=1025;
+        with (obj_block) {
+            if (y==other.posicao_yblock-8) and (z==other.posicao_zblock) and (x<other.posicao_xblock-8) {
+                other.bloqueio=true;
+            }
+        }
+        if (bloqueio==false) {
+            if (refazer_profundidade==false) {
+                girox=x;
+                giroy=y;
+                refazer_profundidade=true;
+            }
+            x=0+8;
+        }
+        with (obj_block) {
+            if (y==other.posicao_yblock-8)
+            and (x<other.profundidade_eleita) 
+            and (scr_checkplat(self)==true) {
+                other.profundidade_eleita=x;
+            }
+        }
+        if (bloqueio==false) and (profundidade_eleita<1025) {
+            x=profundidade_eleita+8;
+        }
+    }
+    if (obj_camera.direcao==270) {
+        profundidade_eleita=-1;
+        with (obj_block) {
+            if (x==other.posicao_xblock-8) and (z==other.posicao_zblock) and (y>other.posicao_yblock-8) {
+                other.bloqueio=true;
+            }
+        }
+        if (bloqueio==false) {
+            if (refazer_profundidade==false) {
+                girox=x;
+                giroy=y;
+                refazer_profundidade=true;
+            }
+            y=1024+8;
+        }
+        with (obj_block) {
+            if (x==other.posicao_xblock-8)
+            and (y>other.profundidade_eleita) 
+            and (scr_checkplat(self)==true) {
+                other.profundidade_eleita=y;
+            }
+        }
+        if (bloqueio==false) and (profundidade_eleita>-1) {
+            y=profundidade_eleita+8;
+        }
+    }
+}
+/*
+Código antigo devorador de programadores. Antes, somente eu e Deus sabia o que isso acontecia. Agora, só Deus mesmo...
+Deixa aqui porque... Vai que... né!?
 else {
     //A profundidade será atualizada!
     atualizar_profundidade=false;
@@ -130,4 +253,4 @@ else {
             }
         }
     }
-}
+}*/
